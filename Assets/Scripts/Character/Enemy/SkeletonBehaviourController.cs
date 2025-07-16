@@ -77,7 +77,7 @@ namespace DunDungeons
             var playerPosition = player.transform.position;
             var distanceToPlayer = (transform.position - playerPosition).magnitude;
 
-            if (Mathf.Abs(distanceToPlayer) > distanceToAttack && !movementController.IsLocked)
+            if ((Mathf.Abs(distanceToPlayer) > distanceToAttack && !movementController.IsLocked))
             {
                 animationController.SetWalking(true);
                 movementController.MoveToPoint(player.transform.position);

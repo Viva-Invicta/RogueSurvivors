@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -5,6 +6,8 @@ namespace DunDungeons
 {
     public class CharacterCombatController : MonoBehaviour
     {
+        public event Action StartedAttack;
+
         [SerializeField] protected float attackCooldown = 1f;
         [SerializeField] private Weapon weapon;
         [SerializeField] private float delayBeforeWeaponActivation = 0.2f; //in percent
@@ -12,6 +15,8 @@ namespace DunDungeons
         protected CharacterAnimationController animationController;
         protected CharacterMovementController movementController;
         protected CharacterBehaviourController behaviourController;
+
+        public bool IsInCooldown => isInCooldown;
 
         protected bool isInCooldown;
 
@@ -55,6 +60,8 @@ namespace DunDungeons
         protected IEnumerator WaitForWeaponActivation()
         {
             yield return new WaitForSecondsRealtime(attackCooldown * delayBeforeWeaponActivation);
+
+            StartedAttack?.Invoke();
             weapon.Activate();
         }
 

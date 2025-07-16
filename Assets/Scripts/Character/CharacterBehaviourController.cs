@@ -1,3 +1,5 @@
+using DG.Tweening;
+using System.Linq;
 using UnityEngine;
 
 namespace DunDungeons
@@ -14,6 +16,9 @@ namespace DunDungeons
         private CharacterAnimationController characterAnimationController;
 
         [SerializeField]
+        private CharacterCombatController characterCombatController;
+
+        [SerializeField]
         private HealthComponent healthComponent;
 
         [SerializeField]
@@ -25,11 +30,28 @@ namespace DunDungeons
         [SerializeField]
         private GameObject spawnEffect;
 
+        [SerializeField]
+        private AudioClip[] damageAudioClips;
+
+        [SerializeField]
+        private AudioClip[] attackAudioClips;
+
+        [SerializeField]
+        private AudioClip deathSound;
+
+        [SerializeField]
+        private AudioSource audioSource;
+
+        private int lastHP;
+
         public bool IsDead { get; private set; }
 
         protected virtual void OnEnable()
         {
-            healthComponent.Updated += HandleHPUpdated;    
+            healthComponent.Updated += HandleHPUpdated;
+
+            characterCombatController.StartedAttack += HandleAttackStarted;
+            lastHP = healthComponent.MaxHP;
         }
 
         private void Start()
@@ -45,10 +67,31 @@ namespace DunDungeons
 
         }
 
+        private void HandleAttackStarted()
+        {
+            if (audioSource && attackAudioClips.Any())
+            {
+                var attackAudioClip = attackAudioClips[Random.Range(0, attackAudioClips.Length)];
+                audioSource.PlayOneShot(attackAudioClip);
+            }
+        }
+
         private void HandleHPUpdated()
         {
-            if (healthComponent.CurrentHP <= 0)
+            var currentHP = healthComponent.CurrentHP;
+            if (currentHP > 0 && currentHP < lastHP && audioSource && damageAudioClips.Any())
             {
+                var damageAudioClip = damageAudioClips[Random.Range(0, damageAudioClips.Length)];
+                audioSource.PlayOneShot(damageAudioClip);
+            }
+
+            if (currentHP <= 0)
+            {   
+                if (deathSound && audioSource)
+                {
+                    audioSource.PlayOneShot(deathSound);
+                }
+
                 IsDead = true;
                 characterAnimationController.PlayDeath();
 
@@ -57,6 +100,7 @@ namespace DunDungeons
                     deathEffect.SetActive(true);
                 }
 
+                transform.DOScale(0, delayBeforeDeath).SetEase(Ease.InBack);
                 Destroy(gameObject, delayBeforeDeath);
             }
         }

@@ -32,6 +32,7 @@ namespace DunDungeons
     public enum CharacterType
     {
         Player,
-        Skeleton
+        Skeleton,
+        BigSkeleton
     }
 }
