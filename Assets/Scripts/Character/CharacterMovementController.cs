@@ -3,28 +3,23 @@ using UnityEngine;
 
 namespace DunDungeons
 {
-    public class CharacterMovementController : MonoBehaviour
+    public class CharacterMovementController : MonoBehaviour, IInitializableCharacterComponent
     {
         [SerializeField] protected float movementSpeed;
         [SerializeField] protected float rotationDuration = 0.2f;
+        [SerializeField] protected CharacterController characterController;
 
-        protected CharacterController characterController;
-        private CharacterBehaviourController characterBehaviourController;
-        protected bool isMovementLocked;
+        private Transform characterTransform;
 
-        public bool IsLocked => isMovementLocked;
+        protected ICharacterStateProvider CharacterState { get; private set; }
+        protected ServiceLocator ServiceLocator { get; private set; }
 
-        protected virtual void OnEnable()
+        public virtual void Initialize(ServiceLocator serviceLocator, ICharacterStateProvider state)
         {
-            characterController = GetComponent<CharacterController>();
-            characterBehaviourController = GetComponent<CharacterBehaviourController>();
+            ServiceLocator = serviceLocator;
+            CharacterState = state;
 
-            Debug.Assert(characterController, "No Character Controller!");
-        }
-
-        public void LockMovement(bool isLocked)
-        {
-            isMovementLocked = isLocked;
+            characterTransform = characterController.transform;
         }
 
         public void MoveToPoint(Vector3 point)
@@ -32,14 +27,9 @@ namespace DunDungeons
             Move((point - transform.position).normalized);
         }
 
-        protected void Move(Vector3 direction)
+        public void Move(Vector3 direction)
         {
-            if (characterBehaviourController.IsDead)
-            {
-                return;
-            }
-
-            if (isMovementLocked)
+            if (CharacterState.IsDead || CharacterState.IsMovementLocked)
             {
                 return;
             }
@@ -51,7 +41,7 @@ namespace DunDungeons
 
             characterController.Move(direction * movementSpeed * Time.fixedDeltaTime);
             var rotation = Quaternion.LookRotation(direction);
-            transform.DORotateQuaternion(rotation, rotationDuration);
+            characterTransform.DORotateQuaternion(rotation, rotationDuration);
         }
     }
 }

@@ -1,10 +1,9 @@
-using DG.Tweening;
-using System.Linq;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace DunDungeons
 {
-    public class CharacterBehaviourController : MonoBehaviour, IHaveFaction
+    public abstract class CharacterBehaviourController : MonoBehaviour, IHaveFaction
     {
         [field: SerializeField]
         public Faction Faction { get; private set; } = Faction.Enemy;
@@ -13,96 +12,110 @@ namespace DunDungeons
         public CharacterType CharacterType { get; private set; }
 
         [SerializeField]
-        private CharacterAnimationController characterAnimationController;
-
-        [SerializeField]
-        private CharacterCombatController characterCombatController;
-
-        [SerializeField]
         private HealthComponent healthComponent;
 
         [SerializeField]
         private float delayBeforeDeath = 5f;
 
-        [SerializeField]
-        private GameObject deathEffect;
+        [SerializeField] protected CharacterCombatController combatController;
+        [SerializeField] protected CharacterMovementController movementController;
+        [SerializeField] protected CharacterAnimationController animationController;
+        [SerializeField] protected CharacterEffectsController effectsController;
+        [SerializeField] protected CharacterSoundController soundController;
 
-        [SerializeField]
-        private GameObject spawnEffect;
-
-        [SerializeField]
-        private AudioClip[] damageAudioClips;
-
-        [SerializeField]
-        private AudioClip[] attackAudioClips;
-
-        [SerializeField]
-        private AudioClip deathSound;
-
-        [SerializeField]
-        private AudioSource audioSource;
+        protected ServiceLocator serviceLocator;
 
         private int lastHP;
+        private CharacterState state;
 
-        public bool IsDead { get; private set; }
-
-        protected virtual void OnEnable()
-        {
-            healthComponent.Updated += HandleHPUpdated;
-
-            characterCombatController.StartedAttack += HandleAttackStarted;
-            lastHP = healthComponent.MaxHP;
-        }
+        public ICharacterStateProvider State => state;
 
         private void Start()
         {
-            if (spawnEffect)
-            {
-                spawnEffect.SetActive(true);
-            }
+            effectsController.PlaySpawnEffect();
         }
 
-        public virtual void Initialize(ServiceLocator serviceLocator)
+        public void Initialize(ServiceLocator serviceLocator)
         {
+            this.serviceLocator = serviceLocator;
 
+            state = new CharacterState();
+            state.RootComponent = this;
+
+            lastHP = healthComponent.MaxHP;
+
+            healthComponent.Updated += HandleHPUpdated;
+            combatController.StartedAttack += HandleAttackStarted;
+            combatController.StartedCooldown += HandleWeaponCooldownStarted;
+            combatController.EndedCooldown += HandleWeaponCooldownEnded;
+
+            var controllers = new List<MonoBehaviour> 
+            { 
+                combatController,
+                movementController, 
+                animationController, 
+                effectsController, 
+                soundController 
+            };
+
+            foreach (var controller in controllers)
+            {
+                InitializeController(controller);
+            }
+
+            OnAfterInitialize();
+        }
+
+        protected abstract void OnAfterInitialize();
+
+        private void InitializeController(MonoBehaviour controller)
+        {
+            if (controller is IInitializableCharacterComponent initializableComponent)
+            {
+                initializableComponent.Initialize(serviceLocator, state);
+            }
         }
 
         private void HandleAttackStarted()
         {
-            if (audioSource && attackAudioClips.Any())
-            {
-                var attackAudioClip = attackAudioClips[Random.Range(0, attackAudioClips.Length)];
-                audioSource.PlayOneShot(attackAudioClip);
-            }
+            soundController.PlayAttackClip();
         }
 
         private void HandleHPUpdated()
         {
             var currentHP = healthComponent.CurrentHP;
-            if (currentHP > 0 && currentHP < lastHP && audioSource && damageAudioClips.Any())
+            if (currentHP > 0 && currentHP < lastHP)
             {
-                var damageAudioClip = damageAudioClips[Random.Range(0, damageAudioClips.Length)];
-                audioSource.PlayOneShot(damageAudioClip);
+                soundController.PlayDamagedClip();
             }
 
             if (currentHP <= 0)
-            {   
-                if (deathSound && audioSource)
-                {
-                    audioSource.PlayOneShot(deathSound);
-                }
+            {
+                soundController.PlayDeathClip();
 
-                IsDead = true;
-                characterAnimationController.PlayDeath();
+                state.IsDead = true;
 
-                if (deathEffect)
-                {
-                    deathEffect.SetActive(true);
-                }
+                animationController.PlayDeath();
+                effectsController.PlayDeathEffect(delayBeforeDeath);
 
-                transform.DOScale(0, delayBeforeDeath).SetEase(Ease.InBack);
                 Destroy(gameObject, delayBeforeDeath);
             }
+
+            lastHP = currentHP;
+        }
+
+        private void HandleWeaponCooldownStarted(float cooldown)
+        {
+            animationController.SetAttackSpeed(1 / cooldown);
+            animationController.TriggerAttackAnimation();
+            state.IsWeaponInCooldown = true;
+            state.IsMovementLocked = true;
+        }
+
+        private void HandleWeaponCooldownEnded()
+        {
+            state.IsWeaponInCooldown = false;
+            state.IsMovementLocked = false;
         }
     }
 }

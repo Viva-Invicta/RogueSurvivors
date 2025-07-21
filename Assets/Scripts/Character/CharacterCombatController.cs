@@ -1,76 +1,58 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using Sirenix.OdinInspector;
 
 namespace DunDungeons
 {
-    public class CharacterCombatController : MonoBehaviour
+    public class CharacterCombatController : MonoBehaviour, IInitializableCharacterComponent
     {
         public event Action StartedAttack;
+        public event Action<float> StartedCooldown;
+        public event Action EndedCooldown;
 
         [SerializeField] protected float attackCooldown = 1f;
         [SerializeField] private Weapon weapon;
         [SerializeField] private float delayBeforeWeaponActivation = 0.2f; //in percent
 
-        protected CharacterAnimationController animationController;
-        protected CharacterMovementController movementController;
-        protected CharacterBehaviourController behaviourController;
-
-        public bool IsInCooldown => isInCooldown;
+        protected ServiceLocator ServiceLocator { get; private set; }
+        protected ICharacterStateProvider CharacterState { get; private set; }
 
         protected bool isInCooldown;
 
-        private void OnEnable()
+        public void Initialize(ServiceLocator serviceLocator, ICharacterStateProvider state)
         {
-            animationController = GetComponent<CharacterAnimationController>();
-
-            if (!animationController)
-            {
-                Debug.LogError("No animation controller on " + gameObject.name);
-            }
-
-            movementController = GetComponent<CharacterMovementController>();
-
-            if (!movementController)
-            {
-                Debug.LogError("No movement controller on " + gameObject.name);
-            }
-
-            behaviourController = GetComponent<CharacterBehaviourController>();
+            ServiceLocator = serviceLocator;
+            CharacterState = state;
         }
 
         public void Attack()
         {
-            if (isInCooldown || behaviourController.IsDead)
+            if (CharacterState.IsWeaponInCooldown || CharacterState.IsDead)
             {
                 return;
             }
 
-            isInCooldown = true;
-
-            StartCoroutine(WaitForWeaponActivation());
-
-            animationController.SetAttackSpeed(1 / attackCooldown);
-            animationController.TriggerAttackAnimation();
-            movementController.LockMovement(isLocked: true);
-
-            StartCoroutine(Cooldown());
+            CharacterState.RootComponent.StartCoroutine(WaitForWeaponActivation());
+            CharacterState.RootComponent.StartCoroutine(Cooldown());
         }
 
         protected IEnumerator WaitForWeaponActivation()
         {
-            yield return new WaitForSecondsRealtime(attackCooldown * delayBeforeWeaponActivation);
+            yield return new WaitForSeconds(attackCooldown * delayBeforeWeaponActivation);
 
-            StartedAttack?.Invoke();
             weapon.Activate();
+            StartedAttack?.Invoke();
         }
 
         protected IEnumerator Cooldown()
         {
+            StartedCooldown?.Invoke(attackCooldown);
+
             yield return new WaitForSeconds(attackCooldown);
+
             weapon.Deactivate();
-            movementController.LockMovement(isLocked: false);
-            isInCooldown = false;
+            EndedCooldown?.Invoke();
         }
     }
 }

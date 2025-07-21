@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,6 @@ namespace DunDungeons
 {
     public class CharacterAnimationController : MonoBehaviour
     {
-
         [SerializeField]
         private Animator animator;
 
@@ -23,29 +23,26 @@ namespace DunDungeons
         private const string AttackSpeedAnimatorParameter = "AttackSpeed";
         private const string DeathAnimation = "Death";
 
-        private CharacterController characterController;
+        protected ICharacterStateProvider characterState;
+        protected ServiceLocator ServiceLocator { get; private set; }
+
         private bool isWalking;
 
-        private void OnEnable()
+        public void Initialize(ServiceLocator serviceLocator, ICharacterStateProvider state)
         {
-            characterController = GetComponent<CharacterController>();
-
-            if (!characterController)
-            {
-                Debug.LogError("No character controller on " + gameObject.name);
-            }
+            ServiceLocator = serviceLocator;
+            characterState = state;
         }
 
         public void TriggerAttackAnimation()
         {
             SetWalking(false);
 
-            var animationIndex = Random.Range(0, attackAnimationsList.Count);
+            var animationIndex = UnityEngine.Random.Range(0, attackAnimationsList.Count);
             var animationName = attackAnimationsList.ElementAt(animationIndex);
 
             animator.SetTrigger(animationName);
             SetWalking(false);
-            //animator.ResetTrigger(animationName);
         }
 
         public void SetWalking(bool isWalking)

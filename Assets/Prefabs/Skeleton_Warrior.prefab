@@ -866,6 +866,130 @@ Transform:
   - {fileID: 6885046889054592862}
   m_Father: {fileID: 8163917169907817753}
   m_LocalEulerAnglesHint: {x: 4.3798094, y: -168.77213, z: -174.27937}
+--- !u!1 &3944702387400702865
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8941613561835372946}
+  - component: {fileID: 3303373028552240540}
+  - component: {fileID: 4384881941584274236}
+  - component: {fileID: 6656460351501956081}
+  - component: {fileID: 8457451240590263436}
+  - component: {fileID: 6617266065260609949}
+  m_Layer: 0
+  m_Name: ComponentsContainer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8941613561835372946
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3944702387400702865}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 209928471452407147}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3303373028552240540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3944702387400702865}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bb42d8579747bb4b83a6ce208d2ac9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 4928577586243423424}
+  attackAnimationsList:
+  - Attack1
+  - Attack2
+  - Attack3
+--- !u!114 &4384881941584274236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3944702387400702865}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15f8a19c6fe65b645a498a4805fee196, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementSpeed: 1.3
+  rotationDuration: 2
+  characterController: {fileID: 56489226605203321}
+--- !u!114 &6656460351501956081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3944702387400702865}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5aed5752e818f744bbabf6d5fc9711f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackCooldown: 1
+  weapon: {fileID: 1316642751416765441}
+  delayBeforeWeaponActivation: 0.2
+--- !u!114 &8457451240590263436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3944702387400702865}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cb988443b158b24a828b8ba899a0a37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deathEffect: {fileID: 122426430683630816}
+  spawnEffect: {fileID: 3262143731333656893}
+--- !u!114 &6617266065260609949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3944702387400702865}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d9c42b94d1fbf64798ba2e24437178f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageAudioClips:
+  - {fileID: 8300000, guid: eddbce7f3dac74d47ac74963fc878fe4, type: 3}
+  - {fileID: 8300000, guid: 1a7a227f089b31744a9077e72350d7b6, type: 3}
+  - {fileID: 8300000, guid: b02b2bd7321ce9046a21275c903019e1, type: 3}
+  - {fileID: 8300000, guid: fbb5e8f993a673743a32d10508583931, type: 3}
+  - {fileID: 8300000, guid: 0c7f64d9a15fbff43a7f5ac8c4093be5, type: 3}
+  - {fileID: 8300000, guid: 16724b6303be0fc4e8070fd0f01bad16, type: 3}
+  - {fileID: 8300000, guid: d13ac3764234d484d8247e8a3903f462, type: 3}
+  attackAudioClips:
+  - {fileID: 8300000, guid: 216bb6db0977ac341bc92fdc2d9647ea, type: 3}
+  - {fileID: 8300000, guid: 6f84da0135150ed40b656aa28c33dd6b, type: 3}
+  - {fileID: 8300000, guid: fb5870bf157e67d4bab525a884b85e9f, type: 3}
+  - {fileID: 8300000, guid: ac2deb8617902a243a323aa6521d98c9, type: 3}
+  deathSound: {fileID: 8300000, guid: 3bdc16e8dd093af469b058e0b3793d81, type: 3}
+  audioSource: {fileID: 4539934861036408460}
 --- !u!1 &4061117647584517242
 GameObject:
   m_ObjectHideFlags: 0
@@ -1095,9 +1219,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 209928471452407147}
-  - component: {fileID: 5412569463633266215}
-  - component: {fileID: 7741573422480919084}
-  - component: {fileID: 8706224512727815634}
   - component: {fileID: 56489226605203321}
   - component: {fileID: 1155098499038769696}
   - component: {fileID: 5062678749018876809}
@@ -1123,6 +1244,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 8941613561835372946}
   - {fileID: 3265749649311250457}
   - {fileID: 124167526080955002}
   - {fileID: 7045954835646108104}
@@ -1130,52 +1252,6 @@ Transform:
   - {fileID: 4032694841812590125}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!114 &5412569463633266215
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4484741528110547416}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7bb42d8579747bb4b83a6ce208d2ac9d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 4928577586243423424}
-  attackAnimationsList:
-  - Attack1
-  - Attack2
-  - Attack3
---- !u!114 &7741573422480919084
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4484741528110547416}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15f8a19c6fe65b645a498a4805fee196, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  movementSpeed: 1.3
-  rotationDuration: 2
---- !u!114 &8706224512727815634
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4484741528110547416}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f182df82b9af5bf49a4c9d97b189ee35, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackCooldown: 1.5
-  weapon: {fileID: 1316642751416765441}
-  delayBeforeWeaponActivation: 0.3
 --- !u!143 &56489226605203321
 CharacterController:
   m_ObjectHideFlags: 0
@@ -1216,22 +1292,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Faction>k__BackingField: 1
   <CharacterType>k__BackingField: 1
-  characterAnimationController: {fileID: 5412569463633266215}
-  characterCombatController: {fileID: 8706224512727815634}
   healthComponent: {fileID: 5277442156344661459}
   delayBeforeDeath: 2.6
-  deathEffect: {fileID: 122426430683630816}
-  spawnEffect: {fileID: 3262143731333656893}
-  damageAudioClips:
-  - {fileID: 8300000, guid: eddbce7f3dac74d47ac74963fc878fe4, type: 3}
-  - {fileID: 8300000, guid: 1a7a227f089b31744a9077e72350d7b6, type: 3}
-  - {fileID: 8300000, guid: d13ac3764234d484d8247e8a3903f462, type: 3}
-  - {fileID: 8300000, guid: d5cdc11d5b7b8de419aae0de2045e033, type: 3}
-  attackAudioClips:
-  - {fileID: 8300000, guid: 216bb6db0977ac341bc92fdc2d9647ea, type: 3}
-  - {fileID: 8300000, guid: ac2deb8617902a243a323aa6521d98c9, type: 3}
-  deathSound: {fileID: 8300000, guid: 3bdc16e8dd093af469b058e0b3793d81, type: 3}
-  audioSource: {fileID: 4539934861036408460}
+  combatController: {fileID: 6656460351501956081}
+  movementController: {fileID: 4384881941584274236}
+  animationController: {fileID: 3303373028552240540}
+  effectsController: {fileID: 8457451240590263436}
+  soundController: {fileID: 6617266065260609949}
   distanceToAttack: 1.5
   minDelayBeforeWalk: 0
   maxDelayBeforeWalk: 5
