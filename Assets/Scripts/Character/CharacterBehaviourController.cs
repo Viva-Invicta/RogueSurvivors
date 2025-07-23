@@ -67,7 +67,13 @@ namespace DunDungeons
             OnAfterInitialize();
         }
 
+        private void OnDestroy()
+        {
+            OnAfterDestroy();
+        }
+
         protected abstract void OnAfterInitialize();
+        protected abstract void OnAfterDestroy();
 
         private void InitializeController(MonoBehaviour controller)
         {

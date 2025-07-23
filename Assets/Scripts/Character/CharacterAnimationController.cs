@@ -25,6 +25,7 @@ namespace DunDungeons
         private const string WalkSpeedAnimatorParamater = "Speed";
         private const string AttackSpeedAnimatorParameter = "AttackSpeed";
         private const string DeathAnimation = "Death";
+        private const string CheerAnimation = "Cheer";
 
         private const float MinSpeedToRunAnimation = 2.5f;
 
@@ -81,6 +82,12 @@ namespace DunDungeons
         {
             SetWalking(false);
             animator.SetTrigger(DeathAnimation);
+        }
+
+        public void PlayCheer()
+        {
+            SetWalking(false);
+            animator.SetBool(CheerAnimation, true);
         }
     }
 }

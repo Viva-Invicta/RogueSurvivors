@@ -16,6 +16,7 @@ namespace DunDungeons
         private Transform target;
         private Camera mainCamera;
         private CharacterMovementController model;
+        private HealthComponent hpModel;
 
         private void OnEnable()
         {
@@ -47,13 +48,16 @@ namespace DunDungeons
         public void SetModels(CharacterMovementController model, HealthComponent hpModel)
         {
             this.model = model;
-            hpModel.Updated += () => HandleHPModelUpdated(hpModel);
+            this.hpModel = hpModel;
+
+            hpModel.Updated +=  HandleHPModelUpdated;
         }
 
-        private void HandleHPModelUpdated(HealthComponent hpModel)
+        private void HandleHPModelUpdated()
         {
             if (hpModel.CurrentHP <= 0)
             {
+                hpModel.Updated -= HandleHPModelUpdated;
                 Destroy(gameObject);
                
                 return;

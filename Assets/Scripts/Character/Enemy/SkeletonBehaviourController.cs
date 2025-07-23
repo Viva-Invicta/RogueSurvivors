@@ -16,13 +16,31 @@ namespace DunDungeons
 
         private EntitiesService entitiesService;
 
+        private HealthComponent playerHealth;
         private bool canWalk = false;
 
         protected override void OnAfterInitialize()
         {
             entitiesService = serviceLocator.EntitiesService;
 
+            var player = entitiesService.Player;
+            if (player)
+            {
+                playerHealth = player.GetComponent<HealthComponent>();
+                playerHealth.Updated += HandlePlayerHealthUpdated;
+            }
             StartCoroutine(DelayBeforeCanWalk());
+        }
+
+        private void HandlePlayerHealthUpdated()
+        {
+            if (playerHealth.CurrentHP <= 0)
+            {
+                State.IsAttackLocked = true;
+                State.IsMovementLocked = true;
+                State.IsDead = true;
+                animationController.PlayCheer();
+            }
         }
 
         private IEnumerator DelayBeforeCanWalk()
@@ -58,6 +76,11 @@ namespace DunDungeons
                 animationController.SetWalking(false);
                 combatController.Attack();
             }
+        }
+
+        protected override void OnAfterDestroy()
+        {
+            playerHealth.Updated -= HandlePlayerHealthUpdated;
         }
     }
 }

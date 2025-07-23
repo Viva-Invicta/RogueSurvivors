@@ -70,8 +70,18 @@ namespace DunDungeons
 
         private void HandleDashCooldownCompleted()
         {
-            dashBar.gameObject.SetActive(false);
+            if (dashBar)
+            {
+                dashBar.gameObject.SetActive(false);
+            }
             State.IsDashInCooldown = false;
+        }
+
+        protected override void OnAfterDestroy()
+        {
+            movementController.DashStarted -= HandleDashStarted;
+            movementController.DashCompleted -= HandleDashCompleted;
+            movementController.DashCooldownCompleted -= HandleDashCooldownCompleted;
         }
     }
 }
