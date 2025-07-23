@@ -12,7 +12,7 @@ namespace DunDungeons
         public CharacterType CharacterType { get; private set; }
 
         [SerializeField]
-        private HealthComponent healthComponent;
+        protected HealthComponent healthComponent;
 
         [SerializeField]
         private float delayBeforeDeath = 5f;
@@ -28,7 +28,7 @@ namespace DunDungeons
         private int lastHP;
         private CharacterState state;
 
-        public ICharacterStateProvider State => state;
+        protected CharacterState State => state;
 
         private void Start()
         {
@@ -41,6 +41,7 @@ namespace DunDungeons
 
             state = new CharacterState();
             state.RootComponent = this;
+            state.MovementSpeed = movementController.MovementSpeed;
 
             lastHP = healthComponent.MaxHP;
 

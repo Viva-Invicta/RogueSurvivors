@@ -28,7 +28,7 @@ namespace DunDungeons
 
         public void Attack()
         {
-            if (CharacterState.IsWeaponInCooldown || CharacterState.IsDead)
+            if (CharacterState.IsWeaponInCooldown || CharacterState.IsDead || CharacterState.IsAttackLocked)
             {
                 return;
             }

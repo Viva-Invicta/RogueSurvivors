@@ -1,4 +1,5 @@
 using DG.Tweening;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace DunDungeons
@@ -10,6 +11,9 @@ namespace DunDungeons
 
         [SerializeField]
         private GameObject spawnEffect;
+
+        [SerializeField]
+        private GameObject dashEffectPrefab;
 
         public void PlaySpawnEffect()
         {
@@ -27,6 +31,19 @@ namespace DunDungeons
             }
 
             transform.DOScale(0, delayBeforeDeath).SetEase(Ease.InBack);
+        }
+
+        public void PlayDashEffect(Vector3 lookDirection)
+        {
+            if (dashEffectPrefab)
+            {
+                var dashEffect = Instantiate(dashEffectPrefab);
+                dashEffect.transform.position = transform.position;
+
+                var lookRotation = Quaternion.LookRotation(-lookDirection);
+                dashEffect.transform.rotation = lookRotation;
+                Destroy(dashEffect, 5f);
+            }
         }
     }
 }

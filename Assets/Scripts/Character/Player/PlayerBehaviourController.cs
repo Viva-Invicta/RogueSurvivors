@@ -8,10 +8,18 @@ namespace DunDungeons
         {
             inputService = serviceLocator.InputService;
             isInitialized = true;
+
+            movementController.DashStarted += HandleDashStarted;
+            movementController.DashCompleted += HandleDashCompleted;
+            movementController.DashCooldownCompleted += HandleDashCooldownCompleted;
+
+            dashBar = serviceLocator.UIService.AddDashBar(gameObject, movementController, healthComponent);
+            dashBar.gameObject.SetActive(false);
         }
 
         private InputService inputService;
         private bool isInitialized;
+        private PlayerDashBar dashBar;
 
         private void FixedUpdate()
         {
@@ -25,40 +33,15 @@ namespace DunDungeons
                 combatController.Attack();
             }
 
-            if (State.IsMovementLocked)
+            if (inputService.Special1Pressed && !State.IsDashInCooldown)
             {
+                movementController.PerformDash();
                 return;
             }
 
-            movementController.Move(direction: CalculateDirection());
-        }
+            movementController.Move(inputService.InputDirection);
 
-        private Vector3 CalculateDirection()
-        {
-            var xInput = 0;
-            var zInput = 0;
-
-            if (inputService.UpPressed)
-            {
-                zInput += 1;
-            }
-
-            if (inputService.DownPressed)
-            {
-                zInput -= 1;
-            }
-
-            if (inputService.LeftPressed)
-            {
-                xInput -= 1;
-            }
-
-            if (inputService.RightPressed)
-            {
-                xInput += 1;
-            }
-
-            if (xInput != 0 || zInput != 0)
+            if (inputService.InputDirection.magnitude > 0)
             {
                 animationController.SetWalking(true);
             }
@@ -66,8 +49,29 @@ namespace DunDungeons
             {
                 animationController.SetWalking(false);
             }
+        }
 
-            return new Vector3(xInput, 0, zInput).normalized;
+        private void HandleDashStarted()
+        {
+            State.IsMovementLocked = true;
+            State.IsAttackLocked = true;
+            State.IsDashInCooldown = true;
+            dashBar.gameObject.SetActive(true);
+            animationController.PlayDash();
+            soundController.PlayDashClip();
+            effectsController.PlayDashEffect(serviceLocator.InputService.InputDirection);
+        }
+
+        private void HandleDashCompleted()
+        {
+            State.IsMovementLocked = false;
+            State.IsAttackLocked = false;
+        } 
+
+        private void HandleDashCooldownCompleted()
+        {
+            dashBar.gameObject.SetActive(false);
+            State.IsDashInCooldown = false;
         }
     }
 }

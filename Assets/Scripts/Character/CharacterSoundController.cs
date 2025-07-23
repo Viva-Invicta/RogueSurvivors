@@ -15,6 +15,9 @@ namespace DunDungeons
         private AudioClip deathSound;
 
         [SerializeField]
+        private AudioClip dashSound;
+
+        [SerializeField]
         private AudioSource audioSource;
 
         public void PlayAttackClip()
@@ -32,6 +35,14 @@ namespace DunDungeons
             {
                 var damageAudioClip = damageAudioClips[Random.Range(0, damageAudioClips.Length)];
                 audioSource.PlayOneShot(damageAudioClip);
+            }
+        }
+
+        public void PlayDashClip()
+        {
+            if (audioSource && dashSound)
+            {
+                audioSource.PlayOneShot(dashSound);
             }
         }
 

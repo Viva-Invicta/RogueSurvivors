@@ -934,6 +934,9 @@ MonoBehaviour:
   movementSpeed: 1.3
   rotationDuration: 2
   characterController: {fileID: 56489226605203321}
+  dashSpeed: 0
+  dashDuration: 0
+  dashCooldown: 0
 --- !u!114 &6656460351501956081
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -946,9 +949,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5aed5752e818f744bbabf6d5fc9711f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackCooldown: 1
+  attackCooldown: 2
   weapon: {fileID: 1316642751416765441}
-  delayBeforeWeaponActivation: 0.2
+  delayBeforeWeaponActivation: 0.4
 --- !u!114 &8457451240590263436
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -963,6 +966,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deathEffect: {fileID: 122426430683630816}
   spawnEffect: {fileID: 3262143731333656893}
+  dashEffectPrefab: {fileID: 0}
 --- !u!114 &6617266065260609949
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -989,6 +993,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: fb5870bf157e67d4bab525a884b85e9f, type: 3}
   - {fileID: 8300000, guid: ac2deb8617902a243a323aa6521d98c9, type: 3}
   deathSound: {fileID: 8300000, guid: 3bdc16e8dd093af469b058e0b3793d81, type: 3}
+  dashSound: {fileID: 0}
   audioSource: {fileID: 4539934861036408460}
 --- !u!1 &4061117647584517242
 GameObject:

@@ -5531,6 +5531,7 @@ MonoBehaviour:
   leftKey: 97
   rightKey: 100
   attackKey: 32
+  specialKey1: 304
 --- !u!1001 &815252352
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8646,6 +8647,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvas: {fileID: 560979614}
   healthBarPrefab: {fileID: 4266374039285700973, guid: abd4fe1eb66293042abc3606441a5c33, type: 3}
+  dashBarPrefab: {fileID: 3138635199636248814, guid: c9429fdb00778244396f257eaee619dc, type: 3}
 --- !u!1001 &1386314153
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12771,8 +12773,12 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 4089427751185464270, guid: 9b120fdef016a8e42b17b09b92c3aa35, type: 3}
+      propertyPath: attackCooldown
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4089427751185464270, guid: 9b120fdef016a8e42b17b09b92c3aa35, type: 3}
       propertyPath: delayBeforeWeaponActivation
-      value: 0.3
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 4864322965720169202, guid: 9b120fdef016a8e42b17b09b92c3aa35, type: 3}
       propertyPath: m_LocalPosition.x
@@ -12814,24 +12820,19 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5165021341187824904, guid: 9b120fdef016a8e42b17b09b92c3aa35, type: 3}
+      propertyPath: dashEffectPrefab
+      value: 
+      objectReference: {fileID: 1616104946086206, guid: d629b10ab3d7c8e4db53f00ccd9b8af8, type: 3}
     - target: {fileID: 5252270496137512932, guid: 9b120fdef016a8e42b17b09b92c3aa35, type: 3}
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 7365066436116150565, guid: 9b120fdef016a8e42b17b09b92c3aa35, type: 3}
-      propertyPath: characterController
-      value: 
-      objectReference: {fileID: 7421068849627431260}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b120fdef016a8e42b17b09b92c3aa35, type: 3}
---- !u!143 &7421068849627431260 stripped
-CharacterController:
-  m_CorrespondingSourceObject: {fileID: 5413693690878869744, guid: 9b120fdef016a8e42b17b09b92c3aa35, type: 3}
-  m_PrefabInstance: {fileID: 7421068849627431252}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

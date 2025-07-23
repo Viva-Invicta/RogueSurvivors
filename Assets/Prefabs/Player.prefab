@@ -314,7 +314,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackCooldown: 1
   weapon: {fileID: 1327442431668581234}
-  delayBeforeWeaponActivation: 0.2
+  delayBeforeWeaponActivation: 0.4
 --- !u!114 &5165021341187824904
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -343,6 +343,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 3
   rotationDuration: 0.2
+  characterController: {fileID: 5413693690878869744}
+  dashSpeed: 10
+  dashDuration: 0.3
+  dashCooldown: 2
 --- !u!114 &8566546720494835859
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -363,6 +367,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: fb5870bf157e67d4bab525a884b85e9f, type: 3}
   - {fileID: 8300000, guid: 6f84da0135150ed40b656aa28c33dd6b, type: 3}
   deathSound: {fileID: 8300000, guid: 4d9d855664872a449bcae8bfa3ea5e02, type: 3}
+  dashSound: {fileID: 8300000, guid: faafba7715e2dcb4e866ff07e8b0f14c, type: 3}
   audioSource: {fileID: 739013911287130739}
 --- !u!1001 &2616416870781402192
 PrefabInstance:
