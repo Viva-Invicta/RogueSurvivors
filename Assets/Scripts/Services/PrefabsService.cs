@@ -33,6 +33,7 @@ namespace DunDungeons
     {
         Player,
         Skeleton,
-        BigSkeleton
+        BigSkeleton,
+        FastSkeleton
     }
 }

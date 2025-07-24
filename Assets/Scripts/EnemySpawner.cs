@@ -28,8 +28,22 @@ namespace DunDungeons
             var randomPointIndex = Random.Range(0, spawnPoints.Count);
             var spawnPoint = spawnPoints.ElementAt(randomPointIndex);
 
-            var character = (Random.Range(0, 10) > 0 ? CharacterType.Skeleton : CharacterType.BigSkeleton);
-            var enemyController = GameObject.Instantiate(prefabsService.GetCharacterPrefabByType(character));
+            var characterType = default(CharacterType);
+            var random = Random.Range(0, 10);
+
+            if (random == 0)
+            {
+                characterType = (CharacterType.BigSkeleton);
+            }
+            else if (random < 7)
+            {
+                characterType = (CharacterType.Skeleton);
+            }
+            else
+            {
+                characterType = CharacterType.FastSkeleton;
+            }
+            var enemyController = GameObject.Instantiate(prefabsService.GetCharacterPrefabByType(characterType));
 
             var enemyGO = enemyController.gameObject;
 
