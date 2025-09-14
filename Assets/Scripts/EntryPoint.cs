@@ -8,6 +8,9 @@ namespace DunDungeons
         private const string PlayerTag = "Player";
         private const string CameraTag = "MainCamera";
 
+        [SerializeField]
+        private bool debugSpawnEnemies = true;
+
         private EnemySpawner enemySpawner;
 
         private void OnEnable()
@@ -32,9 +35,12 @@ namespace DunDungeons
                 Debug.LogError("No player behaviour component on object with player tag!!!");
             }
 
-            enemySpawner = new EnemySpawner();
-            enemySpawner.Initialize(serviceLocator);
-            SpawnSkeleton();
+            if (debugSpawnEnemies)
+            {
+                enemySpawner = new EnemySpawner();
+                enemySpawner.Initialize(serviceLocator);
+                SpawnSkeleton();
+            }
         }
 
         private void SpawnSkeleton()

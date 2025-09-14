@@ -880,6 +880,7 @@ GameObject:
   - component: {fileID: 6656460351501956081}
   - component: {fileID: 8457451240590263436}
   - component: {fileID: 6617266065260609949}
+  - component: {fileID: 5700541035630977358}
   m_Layer: 0
   m_Name: ComponentsContainer
   m_TagString: Untagged
@@ -995,6 +996,21 @@ MonoBehaviour:
   deathSound: {fileID: 8300000, guid: 3bdc16e8dd093af469b058e0b3793d81, type: 3}
   dashSound: {fileID: 0}
   audioSource: {fileID: 4539934861036408460}
+--- !u!114 &5700541035630977358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3944702387400702865}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96be0e6025553d5408468c85472c6fde, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dropSettings:
+  - <ItemPrefab>k__BackingField: {fileID: 1824418777294538023, guid: 65624820da905b049bb43262a98a3959, type: 3}
+    <Probability>k__BackingField: 0.2
 --- !u!1 &4061117647584517242
 GameObject:
   m_ObjectHideFlags: 0
@@ -1304,6 +1320,7 @@ MonoBehaviour:
   animationController: {fileID: 3303373028552240540}
   effectsController: {fileID: 8457451240590263436}
   soundController: {fileID: 6617266065260609949}
+  itemDropController: {fileID: 0}
   distanceToAttack: 1.5
   minDelayBeforeWalk: 0
   maxDelayBeforeWalk: 5

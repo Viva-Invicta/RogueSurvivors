@@ -25,5 +25,15 @@ namespace DunDungeons
             currentHP -= amount;
             Updated?.Invoke();
         }
+
+        public void AddHP(int amount)
+        {
+            currentHP += amount;
+            if (currentHP > maxHP)
+            {
+                currentHP = maxHP;
+            }
+            Updated?.Invoke();
+        }
     }
 }

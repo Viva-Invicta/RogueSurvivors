@@ -22,7 +22,8 @@ namespace DunDungeons
         [SerializeField] protected CharacterAnimationController animationController;
         [SerializeField] protected CharacterEffectsController effectsController;
         [SerializeField] protected CharacterSoundController soundController;
-
+        [SerializeField] protected CharacterItemDropController itemDropController;
+ 
         protected ServiceLocator serviceLocator;
 
         private int lastHP;
@@ -56,7 +57,8 @@ namespace DunDungeons
                 movementController, 
                 animationController, 
                 effectsController, 
-                soundController 
+                soundController,
+                itemDropController
             };
 
             foreach (var controller in controllers)
@@ -77,7 +79,7 @@ namespace DunDungeons
 
         private void InitializeController(MonoBehaviour controller)
         {
-            if (controller is IInitializableCharacterComponent initializableComponent)
+            if (controller && controller is IInitializableCharacterComponent initializableComponent)
             {
                 initializableComponent.Initialize(serviceLocator, state);
             }
@@ -104,6 +106,11 @@ namespace DunDungeons
 
                 animationController.PlayDeath();
                 effectsController.PlayDeathEffect(delayBeforeDeath);
+
+                if (itemDropController)
+                {
+                    itemDropController.TryDropItems();
+                }
 
                 Destroy(gameObject, delayBeforeDeath);
             }

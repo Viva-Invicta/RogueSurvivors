@@ -247,6 +247,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1155098499038769696, guid: 9a5b6347f82a1e840ac08bc29be8cda0, type: 3}
+      propertyPath: itemDropController
+      value: 
+      objectReference: {fileID: 3861354250082007804}
+    - target: {fileID: 1155098499038769696, guid: 9a5b6347f82a1e840ac08bc29be8cda0, type: 3}
       propertyPath: <CharacterType>k__BackingField
       value: 3
       objectReference: {fileID: 0}
@@ -312,6 +316,17 @@ PrefabInstance:
       addedObject: {fileID: 308798234363249536}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9a5b6347f82a1e840ac08bc29be8cda0, type: 3}
+--- !u!114 &3861354250082007804 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5700541035630977358, guid: 9a5b6347f82a1e840ac08bc29be8cda0, type: 3}
+  m_PrefabInstance: {fileID: 8829917186413255602}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96be0e6025553d5408468c85472c6fde, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &8675052394757623513 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 209928471452407147, guid: 9a5b6347f82a1e840ac08bc29be8cda0, type: 3}
