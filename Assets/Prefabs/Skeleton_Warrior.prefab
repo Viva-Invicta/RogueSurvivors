@@ -950,7 +950,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5aed5752e818f744bbabf6d5fc9711f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackCooldown: 2
+  initialAttackCooldown: 2
   weapon: {fileID: 1316642751416765441}
   delayBeforeWeaponActivation: 0.4
 --- !u!114 &8457451240590263436

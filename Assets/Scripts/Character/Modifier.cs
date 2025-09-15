@@ -44,7 +44,7 @@ namespace DunDungeons
     {
         MovementSpeed,
         DashSpeed,
-        AttackSpeed,
+        AttackCooldown,
         Damage,
         MaxHealth,
         DashDuration,
