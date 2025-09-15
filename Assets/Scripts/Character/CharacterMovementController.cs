@@ -39,6 +39,8 @@ namespace DunDungeons
         private Modifier dashDurationModifier;
         private Modifier dashCooldownModifier;
 
+        private Tween rotationTween;
+
         protected ICharacterStateProvider CharacterState { get; private set; }
         protected ServiceLocator ServiceLocator { get; private set; }
 
@@ -80,7 +82,8 @@ namespace DunDungeons
 
             characterController.Move(direction * MovementSpeed * Time.fixedDeltaTime);
             var rotation = Quaternion.LookRotation(direction);
-            characterTransform.DORotateQuaternion(rotation, rotationDuration);
+            rotationTween?.Kill();
+            rotationTween = characterTransform.DORotateQuaternion(rotation, rotationDuration);
         }
 
         public void PerformDash()
