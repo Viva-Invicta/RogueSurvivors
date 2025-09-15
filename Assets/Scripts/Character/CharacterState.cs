@@ -15,6 +15,8 @@ namespace DunDungeons
         public float MovementSpeed { get; set; }
 
         public MonoBehaviour RootComponent { get; set; }
+
+        public Faction Faction { get; set; }
     }
 
     public interface ICharacterStateProvider
@@ -30,6 +32,7 @@ namespace DunDungeons
         public float MovementSpeed { get; }
 
         public MonoBehaviour RootComponent { get; }
+        public Faction Faction { get; }
     }
 
     public interface ICharacterStateSetter
@@ -45,5 +48,6 @@ namespace DunDungeons
         public float MovementSpeed { set; }
 
         public MonoBehaviour RootComponent { set; }
+        public Faction Faction { set; }
     }
 }

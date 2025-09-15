@@ -12896,6 +12896,26 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7365066436116150565, guid: 9b120fdef016a8e42b17b09b92c3aa35, type: 3}
+      propertyPath: canDash
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7365066436116150565, guid: 9b120fdef016a8e42b17b09b92c3aa35, type: 3}
+      propertyPath: initialDashSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7365066436116150565, guid: 9b120fdef016a8e42b17b09b92c3aa35, type: 3}
+      propertyPath: initialDashCooldown
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7365066436116150565, guid: 9b120fdef016a8e42b17b09b92c3aa35, type: 3}
+      propertyPath: initialDashDuration
+      value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 7365066436116150565, guid: 9b120fdef016a8e42b17b09b92c3aa35, type: 3}
+      propertyPath: initialMovementSpeed
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

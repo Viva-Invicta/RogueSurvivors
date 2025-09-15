@@ -10,6 +10,5 @@ namespace DunDungeons
         [field: SerializeField] public SpawnerService SpawnerService { get; private set; }
         [field: SerializeField] public PrefabsService PrefabsService { get; private set; }
         [field: SerializeField] public ModifiersService ModifiersService { get; private set; }
-
     }
 }

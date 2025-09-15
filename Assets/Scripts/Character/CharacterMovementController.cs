@@ -2,31 +2,42 @@ using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace DunDungeons
 {
     public class CharacterMovementController : MonoBehaviour, IInitializableCharacterComponent
     {
+        public event Action MovementSpeedUpdated;
+
         public event Action DashStarted;
         public event Action DashCompleted;
         public event Action DashCooldownCompleted;
 
-        [SerializeField] protected float movementSpeed;
+        [SerializeField] protected float initialMovementSpeed;
         [SerializeField] protected float rotationDuration = 0.2f;
         [SerializeField] protected CharacterController characterController;
-        [SerializeField] private float dashSpeed;
-        [SerializeField] private float dashDuration;
-        [SerializeField] private float dashCooldown;
+        [SerializeField] private float initialDashSpeed;
+        [SerializeField] private float initialDashDuration;
+        [SerializeField] private float initialDashCooldown;
 
-        private float passedDashTime;
         private float passedDashCooldownTime;
 
-        public float DashCooldownDuration => dashCooldown;
         public float PassedDashCooldownTime => passedDashCooldownTime;
-        public float MovementSpeed => movementSpeed;
+
+        public float DashCooldownDuration => initialDashCooldown * dashCooldownModifier;
+        public float MovementSpeed => initialMovementSpeed * movementSpeedModifier;
+        private float DashSpeed => initialDashSpeed * dashSpeedModifier;
+        private float DashDuration => initialDashDuration * dashDurationModifier;
 
         private Transform characterTransform;
+
+        private Modifier movementSpeedModifier;
+        private Modifier dashSpeedModifier;
+        private Modifier dashDurationModifier;
+        private Modifier dashCooldownModifier;
 
         protected ICharacterStateProvider CharacterState { get; private set; }
         protected ServiceLocator ServiceLocator { get; private set; }
@@ -35,6 +46,17 @@ namespace DunDungeons
         {
             ServiceLocator = serviceLocator;
             CharacterState = state;
+
+            var modifiersService = serviceLocator.ModifiersService;
+
+            var faction = state.Faction;
+
+            movementSpeedModifier = modifiersService.GetModifier(faction, ModifierType.MovementSpeed);
+            dashDurationModifier = modifiersService.GetModifier(faction, ModifierType.DashDuration);
+            dashCooldownModifier = modifiersService.GetModifier(faction, ModifierType.DashCooldown);
+            dashSpeedModifier = modifiersService.GetModifier(faction, ModifierType.DashSpeed);
+
+            movementSpeedModifier.Updated += HandleMovementSpeedModifierUpdated;
 
             characterTransform = characterController.transform;
         }
@@ -56,14 +78,14 @@ namespace DunDungeons
                 return;
             }
 
-            characterController.Move(direction * movementSpeed * Time.fixedDeltaTime);
+            characterController.Move(direction * MovementSpeed * Time.fixedDeltaTime);
             var rotation = Quaternion.LookRotation(direction);
             characterTransform.DORotateQuaternion(rotation, rotationDuration);
         }
 
         public void PerformDash()
         {
-            if (CharacterState.IsDead /**|| CharacterState.IsMovementLocked**/)
+            if (CharacterState.IsDead)
             {
                 return;
             }
@@ -74,15 +96,20 @@ namespace DunDungeons
             DashStarted?.Invoke();
         }
 
+        private void HandleMovementSpeedModifierUpdated()
+        {
+            MovementSpeedUpdated?.Invoke();
+        }
+
         private IEnumerator Dash()
         {
             var passedDashTime = 0f;
 
-            while (passedDashTime < dashDuration)
+            while (passedDashTime < DashDuration)
             {
                 passedDashTime += Time.fixedDeltaTime;
                 characterController
-                    .Move(dashSpeed * Time.fixedDeltaTime * ServiceLocator.InputService.InputDirection);
+                    .Move(DashSpeed * Time.fixedDeltaTime * ServiceLocator.InputService.InputDirection);
 
                 yield return new WaitForFixedUpdate();
             }
@@ -94,7 +121,7 @@ namespace DunDungeons
         {
             passedDashCooldownTime = 0f;
 
-            while (passedDashCooldownTime < dashCooldown)
+            while (passedDashCooldownTime < DashCooldownDuration)
             {
                 passedDashCooldownTime += Time.fixedDeltaTime;
 

@@ -1174,6 +1174,7 @@ MonoBehaviour:
   animationController: {fileID: 7300308078708763778}
   effectsController: {fileID: 9217512829856738897}
   soundController: {fileID: 4301075272617622372}
+  itemDropController: {fileID: 0}
   distanceToAttack: 3
   minDelayBeforeWalk: 0
   maxDelayBeforeWalk: 5
@@ -1467,9 +1468,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15f8a19c6fe65b645a498a4805fee196, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 1
+  initialMovementSpeed: 1.8
   rotationDuration: 2
   characterController: {fileID: 56489226605203321}
+  initialDashSpeed: 0
+  initialDashDuration: 0
+  initialDashCooldown: 0
 --- !u!114 &4301075272617622372
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1495,6 +1499,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 6f84da0135150ed40b656aa28c33dd6b, type: 3}
   - {fileID: 8300000, guid: 216bb6db0977ac341bc92fdc2d9647ea, type: 3}
   deathSound: {fileID: 8300000, guid: 3bdc16e8dd093af469b058e0b3793d81, type: 3}
+  dashSound: {fileID: 0}
   audioSource: {fileID: 4539934861036408460}
 --- !u!114 &9217512829856738897
 MonoBehaviour:
@@ -1510,6 +1515,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deathEffect: {fileID: 7149559658513883797}
   spawnEffect: {fileID: 3262186066407710091}
+  dashEffectPrefab: {fileID: 0}
 --- !u!114 &2942583826142768067
 MonoBehaviour:
   m_ObjectHideFlags: 0

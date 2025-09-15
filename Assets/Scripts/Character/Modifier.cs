@@ -1,11 +1,28 @@
+using System;
+
 namespace DunDungeons
 {
     public class Modifier
     {
+        public event Action Updated;
+
         private readonly ModifierType type;
         private readonly Faction faction;
 
-        public float Value { get; set; } = 1;
+        private float currentValue = 1;
+
+        public float Value
+        {
+            get 
+            {
+                return currentValue; 
+            }
+            set
+            {
+                currentValue = value;
+                Updated?.Invoke();
+            }
+        }
 
         public ModifierType Type => type;
 
@@ -16,13 +33,21 @@ namespace DunDungeons
             this.type = type;
             this.faction = faction;
         }
+
+        public static float operator *(float left, Modifier right)
+        {
+            return left * right.Value;
+        }
     }
 
     public enum ModifierType
     {
         MovementSpeed,
+        DashSpeed,
         AttackSpeed,
         Damage,
-        MaxHealth
+        MaxHealth,
+        DashDuration,
+        DashCooldown
     }
 }

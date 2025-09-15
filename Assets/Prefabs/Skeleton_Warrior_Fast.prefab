@@ -270,6 +270,10 @@ PrefabInstance:
       propertyPath: movementSpeed
       value: 2.5
       objectReference: {fileID: 0}
+    - target: {fileID: 4384881941584274236, guid: 9a5b6347f82a1e840ac08bc29be8cda0, type: 3}
+      propertyPath: initialMovementSpeed
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4484741528110547416, guid: 9a5b6347f82a1e840ac08bc29be8cda0, type: 3}
       propertyPath: m_Name
       value: Skeleton_Warrior_Fast

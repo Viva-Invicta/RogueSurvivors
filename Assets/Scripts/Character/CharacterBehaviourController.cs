@@ -42,7 +42,7 @@ namespace DunDungeons
 
             state = new CharacterState();
             state.RootComponent = this;
-            state.MovementSpeed = movementController.MovementSpeed;
+            state.Faction = Faction;
 
             lastHP = healthComponent.MaxHP;
 
@@ -66,6 +66,9 @@ namespace DunDungeons
                 InitializeController(controller);
             }
 
+            state.MovementSpeed = movementController.MovementSpeed;
+            movementController.MovementSpeedUpdated += HandleMovementSpeedUpdated; 
+
             OnAfterInitialize();
         }
 
@@ -83,6 +86,11 @@ namespace DunDungeons
             {
                 initializableComponent.Initialize(serviceLocator, state);
             }
+        }
+
+        private void HandleMovementSpeedUpdated()
+        {
+            state.MovementSpeed = movementController.MovementSpeed;
         }
 
         private void HandleAttackStarted()

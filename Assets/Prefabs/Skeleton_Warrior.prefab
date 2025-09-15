@@ -932,12 +932,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15f8a19c6fe65b645a498a4805fee196, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 1.3
+  initialMovementSpeed: 2
   rotationDuration: 2
   characterController: {fileID: 56489226605203321}
-  dashSpeed: 0
-  dashDuration: 0
-  dashCooldown: 0
+  initialDashSpeed: 0
+  initialDashDuration: 0
+  initialDashCooldown: 0
 --- !u!114 &6656460351501956081
 MonoBehaviour:
   m_ObjectHideFlags: 0
