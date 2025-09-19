@@ -6,7 +6,9 @@ namespace DunDungeons
     public class EntitiesService : MonoBehaviour
     {
         public GameObject Player { get; private set; }
-        public List<GameObject> Enemies { get; } = new List<GameObject>();
+        public IEnumerable<GameObject> Enemies => enemies;
+
+        private List<GameObject> enemies = new List<GameObject>();
 
         public void SetPlayer(GameObject player)
         {
@@ -15,7 +17,15 @@ namespace DunDungeons
 
         public void AddEnemy(GameObject enemy)
         {
-            Enemies.Add(enemy);
+            enemies.Add(enemy);
+        }
+
+        public void RemoveEnemy(GameObject enemy)
+        {
+            if (enemies.Contains(enemy))
+            {
+                enemies.Remove(enemy);
+            }
         }
     }
 }

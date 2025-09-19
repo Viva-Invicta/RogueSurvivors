@@ -12,6 +12,8 @@ namespace DunDungeons
 
         private ServiceLocator serviceLocator;
 
+        private int maxEnemiesCount;
+
         public void Initialize(ServiceLocator serviceLocator)
         {
             spawnerService = serviceLocator.SpawnerService;
@@ -23,6 +25,11 @@ namespace DunDungeons
 
         public CharacterBehaviourController SpawnSkeleton()
         {
+            if (entitiesService.Enemies.Count() >= spawnerService.MaxEnemiesCount)
+            {
+                return default;
+            }
+
             var spawnPoints = spawnerService.SpawnPoints;
 
             var randomPointIndex = Random.Range(0, spawnPoints.Count);

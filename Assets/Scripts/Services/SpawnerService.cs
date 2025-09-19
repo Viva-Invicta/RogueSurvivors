@@ -13,6 +13,9 @@ namespace DunDungeons
         [field: SerializeField]
         public float SpawnRadius { get; private set; } = 1f;
 
+        [field: SerializeField]
+        public int MaxEnemiesCount { get; private set; } = 70;
+
         private void OnDrawGizmosSelected()
         {
             foreach (var spawnPoint in SpawnPoints)

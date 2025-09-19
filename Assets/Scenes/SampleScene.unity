@@ -3319,7 +3319,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1825861749}
   m_Father: {fileID: 1053550547}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &520924686
@@ -3337,7 +3338,8 @@ MonoBehaviour:
   <SpawnPoints>k__BackingField:
   - {fileID: 1606195948}
   - {fileID: 1954586719}
-  <SpawnRadius>k__BackingField: 0.53
+  <SpawnRadius>k__BackingField: 2
+  <MaxEnemiesCount>k__BackingField: 45
 --- !u!1001 &524763693
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10058,7 +10060,7 @@ Transform:
   m_GameObject: {fileID: 1606195947}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.43, y: 0, z: 1.95}
+  m_LocalPosition: {x: 4.43, y: 0, z: 13.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -11021,14 +11023,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1825861748}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1606195948}
   - {fileID: 1954586719}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 520924685}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1833145055
 PrefabInstance:
@@ -11619,7 +11621,7 @@ Transform:
   m_GameObject: {fileID: 1954586718}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.81, y: 0, z: -10.89}
+  m_LocalPosition: {x: 3.81, y: 0, z: -7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -12950,7 +12952,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4089427751185464270, guid: 9b120fdef016a8e42b17b09b92c3aa35, type: 3}
       propertyPath: delayBeforeWeaponActivation
-      value: 0.2
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 4864322965720169202, guid: 9b120fdef016a8e42b17b09b92c3aa35, type: 3}
       propertyPath: m_LocalPosition.x
@@ -13050,5 +13052,4 @@ SceneRoots:
   - {fileID: 560979614}
   - {fileID: 1843404282}
   - {fileID: 663168919}
-  - {fileID: 1825861749}
   - {fileID: 484914720}

@@ -12,7 +12,8 @@ namespace DunDungeons
 
         [SerializeField] protected float initialAttackCooldown = 1f;
         [SerializeField] private Weapon weapon;
-        [SerializeField] private float delayBeforeWeaponActivation = 0.2f; //in percent
+        [SerializeField] private float delayBeforeWeaponActivation = 0.2f; // in percent
+        [SerializeField] private float earlyWeaponDeactivation = 0.2f;     // in percent
 
         protected ServiceLocator ServiceLocator { get; private set; }
         protected ICharacterStateProvider CharacterState { get; private set; }
@@ -60,9 +61,15 @@ namespace DunDungeons
         {
             StartedCooldown?.Invoke(AttackCooldown);
 
-            yield return new WaitForSeconds(AttackCooldown);
+            var deactivateDelay = AttackCooldown * (1f - earlyWeaponDeactivation);
+            yield return new WaitForSeconds(deactivateDelay);
 
             weapon.Deactivate();
+
+            var remainingCooldown = AttackCooldown - deactivateDelay;
+            if (remainingCooldown > 0f)
+                yield return new WaitForSeconds(remainingCooldown);
+
             EndedCooldown?.Invoke();
         }
 

@@ -18,13 +18,18 @@ namespace DunDungeons
 
         public void TryDropItems()
         {
+            var random = UnityEngine.Random.Range(0f, 1f);
+            var cumulative = 0f;
+
             foreach (var setting in dropSettings)
             {
-                var random = UnityEngine.Random.Range(0f, 1f);
-                if (random < setting.Probability)
+                cumulative += setting.Probability;
+
+                if (random <= cumulative)
                 {
                     var droppedItem = Instantiate(setting.ItemPrefab);
                     droppedItem.transform.position = state.RootComponent.transform.position;
+                    return;
                 }
             }
         }

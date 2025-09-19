@@ -1417,6 +1417,7 @@ GameObject:
   - component: {fileID: 4301075272617622372}
   - component: {fileID: 9217512829856738897}
   - component: {fileID: 2942583826142768067}
+  - component: {fileID: 4748678905123300212}
   m_Layer: 0
   m_Name: ComponentsContainer
   m_TagString: Untagged
@@ -1471,8 +1472,8 @@ MonoBehaviour:
   initialMovementSpeed: 1
   rotationDuration: 2
   characterController: {fileID: 56489226605203321}
-  initialDashSpeed: 0
-  initialDashDuration: 0
+  dashSpeedMultiplier: 2
+  dashDuration: 1
   initialDashCooldown: 0
 --- !u!114 &4301075272617622372
 MonoBehaviour:
@@ -1531,6 +1532,24 @@ MonoBehaviour:
   initialAttackCooldown: 4
   weapon: {fileID: 1316642751416765441}
   delayBeforeWeaponActivation: 0.4
+  earlyWeaponDeactivation: 0.2
+--- !u!114 &4748678905123300212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5975608016424377053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96be0e6025553d5408468c85472c6fde, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dropSettings:
+  - <ItemPrefab>k__BackingField: {fileID: 1039807263785100368, guid: d641862414010f040b72fc775a0e3d3e, type: 3}
+    <Probability>k__BackingField: 0.2
+  - <ItemPrefab>k__BackingField: {fileID: 1824418777294538023, guid: 65624820da905b049bb43262a98a3959, type: 3}
+    <Probability>k__BackingField: 0.2
 --- !u!1 &6160813985860717914
 GameObject:
   m_ObjectHideFlags: 0

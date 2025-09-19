@@ -292,7 +292,7 @@ PrefabInstance:
       objectReference: {fileID: 1039807263785100368, guid: d641862414010f040b72fc775a0e3d3e, type: 3}
     - target: {fileID: 5700541035630977358, guid: 9a5b6347f82a1e840ac08bc29be8cda0, type: 3}
       propertyPath: dropSettings.Array.data[0].<Probability>k__BackingField
-      value: 0.4
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 6414655451661543615, guid: 9a5b6347f82a1e840ac08bc29be8cda0, type: 3}
       propertyPath: m_Materials.Array.data[0]

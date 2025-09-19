@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -5,6 +6,8 @@ namespace DunDungeons
 {
     public abstract class CharacterBehaviourController : MonoBehaviour, IHaveFaction
     {
+        public event Action Dead;
+
         [field: SerializeField]
         public Faction Faction { get; private set; } = Faction.Enemy;
 
@@ -29,6 +32,7 @@ namespace DunDungeons
         private int lastHP;
         private CharacterState state;
 
+        private static int killCounter;
         protected CharacterState State => state;
 
         private void Start()
@@ -120,6 +124,21 @@ namespace DunDungeons
                     itemDropController.TryDropItems();
                 }
 
+                GetComponent<CharacterController>().enabled = false;
+                
+                if (Faction == Faction.Enemy)
+                {
+                    serviceLocator.EntitiesService.RemoveEnemy(gameObject);
+                }
+
+                var msMod = serviceLocator.ModifiersService.GetModifier(Faction.Enemy, ModifierType.MovementSpeed);
+                msMod.Value = msMod.Value + 0.02f;
+
+                var attackSpeedMod = serviceLocator.ModifiersService.GetModifier(Faction.Enemy, ModifierType.AttackCooldown);
+                attackSpeedMod.Value = attackSpeedMod.Value * 0.99f;
+                Debug.Log("KILL COUNTER " + ++killCounter);
+
+                Dead?.Invoke();
                 Destroy(gameObject, delayBeforeDeath);
             }
 

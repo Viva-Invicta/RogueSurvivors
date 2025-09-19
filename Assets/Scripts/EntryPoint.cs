@@ -46,20 +46,21 @@ namespace DunDungeons
         private void SpawnSkeleton()
         {
             var skeletonController = enemySpawner.SpawnSkeleton();
+            if (!skeletonController)
+            {
+                return;
+            }
             var skeletonHealth = skeletonController.GetComponent<HealthComponent>();
 
-            skeletonHealth.Updated += () => HandleSkeletonHealthUpdated(skeletonController, skeletonHealth);
+            skeletonController.Dead += () => HandleSkeletonDead();
         }
 
-        private void HandleSkeletonHealthUpdated(CharacterBehaviourController skeletonController, HealthComponent skeletonHealth)
+        private void HandleSkeletonDead()
         {
-            if (skeletonHealth.CurrentHP <= 0)
+            var skeletonCounter = Random.Range(1, 3);
+            for (var skeletonIndex = 0; skeletonIndex < skeletonCounter; skeletonIndex++)
             {
-                var skeletonCounter = Random.Range(1, 3);
-                for (var skeletonIndex = 0; skeletonIndex < skeletonCounter; skeletonIndex++)
-                {
-                    SpawnSkeleton();
-                }
+                SpawnSkeleton();
             }
         }
     }
