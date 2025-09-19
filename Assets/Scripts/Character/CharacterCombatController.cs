@@ -20,6 +20,7 @@ namespace DunDungeons
 
         protected bool isInCooldown;
 
+        private Modifier weaponSizeModifier;
         private Modifier attackCooldownModifier;
 
         public void Initialize(ServiceLocator serviceLocator, ICharacterStateProvider state)
@@ -27,7 +28,13 @@ namespace DunDungeons
             ServiceLocator = serviceLocator;
             CharacterState = state;
 
-            attackCooldownModifier = serviceLocator.ModifiersService.GetModifier(state.Faction, ModifierType.AttackCooldown);
+            var modifierService = serviceLocator.ModifiersService;
+            attackCooldownModifier = modifierService.GetModifier(state.Faction, ModifierType.AttackCooldown);
+            weaponSizeModifier = modifierService.GetModifier(state.Faction, ModifierType.WeaponSize);
+
+            weapon.SetScale(weaponSizeModifier.Value);
+
+            weaponSizeModifier.Updated += HandleWeaponSizeModifierUpdated;
         }
 
         public void Attack()
@@ -57,6 +64,11 @@ namespace DunDungeons
 
             weapon.Deactivate();
             EndedCooldown?.Invoke();
+        }
+
+        private void HandleWeaponSizeModifierUpdated()
+        {
+            weapon.SetScale(weaponSizeModifier.Value);
         }
     }
 }

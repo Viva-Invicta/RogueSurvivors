@@ -1217,7 +1217,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0ca712e7ec4aa34fa2d36235d39ca31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 150
+  maxHP: 100
 --- !u!136 &1219853998583414248
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1468,7 +1468,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15f8a19c6fe65b645a498a4805fee196, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialMovementSpeed: 1.8
+  initialMovementSpeed: 1
   rotationDuration: 2
   characterController: {fileID: 56489226605203321}
   initialDashSpeed: 0
@@ -1528,7 +1528,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5aed5752e818f744bbabf6d5fc9711f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialAttackCooldown: 2.5
+  initialAttackCooldown: 4
   weapon: {fileID: 1316642751416765441}
   delayBeforeWeaponActivation: 0.4
 --- !u!1 &6160813985860717914

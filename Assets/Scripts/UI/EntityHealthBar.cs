@@ -29,10 +29,17 @@ namespace DunDungeons
                 return;
             }
 
-            var targetScreenPosition = mainCamera.WorldToScreenPoint(target.position);
-            var screenPosition = (Vector2) targetScreenPosition + offset;
+            if (model.CurrentHP == model.MaxHP)
+            {
+                transform.position = Vector3.one * 100000;
+            }
+            else
+            {
+                var targetScreenPosition = mainCamera.WorldToScreenPoint(target.position);
+                var screenPosition = (Vector2)targetScreenPosition + offset;
 
-            transform.position = screenPosition;
+                transform.position = screenPosition;
+            }
         }
 
         public void SetTarget(GameObject target)

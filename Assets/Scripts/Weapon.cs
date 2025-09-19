@@ -37,6 +37,11 @@ namespace DunDungeons
             healthComponent.ConsumeHP(damage);
         }
 
+        public void SetScale(float scale)
+        {
+            transform.localScale = Vector3.one * scale;
+        }
+
         public void Activate()
         {
             isActive = true;

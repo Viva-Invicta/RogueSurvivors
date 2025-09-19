@@ -35,7 +35,6 @@ namespace DunDungeons
 
             transform.position = screenPosition;
             var dashPassedPercent = (float)model.PassedDashCooldownTime / model.DashCooldownDuration;
-            Debug.Log((float)model.PassedDashCooldownTime + " " + model.DashCooldownDuration);
             
             foreground.sizeDelta = new Vector2(background.sizeDelta.x * (1 - dashPassedPercent), background.sizeDelta.y);
         }

@@ -43,11 +43,10 @@ namespace DunDungeons
     public enum ModifierType
     {
         MovementSpeed,
-        DashSpeed,
         AttackCooldown,
         Damage,
         MaxHealth,
-        DashDuration,
-        DashCooldown
+        DashCooldown,
+        WeaponSize
     }
 }

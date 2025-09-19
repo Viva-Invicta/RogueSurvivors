@@ -932,7 +932,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15f8a19c6fe65b645a498a4805fee196, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialMovementSpeed: 2
+  initialMovementSpeed: 1
   rotationDuration: 2
   characterController: {fileID: 56489226605203321}
   initialDashSpeed: 0
@@ -950,7 +950,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5aed5752e818f744bbabf6d5fc9711f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialAttackCooldown: 2
+  initialAttackCooldown: 3
   weapon: {fileID: 1316642751416765441}
   delayBeforeWeaponActivation: 0.4
 --- !u!114 &8457451240590263436
@@ -1009,6 +1009,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dropSettings:
+  - <ItemPrefab>k__BackingField: {fileID: 1039807263785100368, guid: d641862414010f040b72fc775a0e3d3e, type: 3}
+    <Probability>k__BackingField: 0.3
   - <ItemPrefab>k__BackingField: {fileID: 1824418777294538023, guid: 65624820da905b049bb43262a98a3959, type: 3}
     <Probability>k__BackingField: 0.2
 --- !u!1 &4061117647584517242
@@ -1320,7 +1322,7 @@ MonoBehaviour:
   animationController: {fileID: 3303373028552240540}
   effectsController: {fileID: 8457451240590263436}
   soundController: {fileID: 6617266065260609949}
-  itemDropController: {fileID: 0}
+  itemDropController: {fileID: 5700541035630977358}
   distanceToAttack: 1.5
   minDelayBeforeWalk: 0
   maxDelayBeforeWalk: 5
@@ -1363,7 +1365,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0ca712e7ec4aa34fa2d36235d39ca31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 60
+  maxHP: 40
 --- !u!136 &1219853998583414248
 CapsuleCollider:
   m_ObjectHideFlags: 0

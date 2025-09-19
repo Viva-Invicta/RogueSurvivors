@@ -272,7 +272,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4384881941584274236, guid: 9a5b6347f82a1e840ac08bc29be8cda0, type: 3}
       propertyPath: initialMovementSpeed
-      value: 3
+      value: 1.6
       objectReference: {fileID: 0}
     - target: {fileID: 4484741528110547416, guid: 9a5b6347f82a1e840ac08bc29be8cda0, type: 3}
       propertyPath: m_Name
@@ -281,6 +281,18 @@ PrefabInstance:
     - target: {fileID: 5277442156344661459, guid: 9a5b6347f82a1e840ac08bc29be8cda0, type: 3}
       propertyPath: maxHP
       value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 5700541035630977358, guid: 9a5b6347f82a1e840ac08bc29be8cda0, type: 3}
+      propertyPath: dropSettings.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5700541035630977358, guid: 9a5b6347f82a1e840ac08bc29be8cda0, type: 3}
+      propertyPath: dropSettings.Array.data[0].<ItemPrefab>k__BackingField
+      value: 
+      objectReference: {fileID: 1039807263785100368, guid: d641862414010f040b72fc775a0e3d3e, type: 3}
+    - target: {fileID: 5700541035630977358, guid: 9a5b6347f82a1e840ac08bc29be8cda0, type: 3}
+      propertyPath: dropSettings.Array.data[0].<Probability>k__BackingField
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 6414655451661543615, guid: 9a5b6347f82a1e840ac08bc29be8cda0, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -292,7 +304,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6656460351501956081, guid: 9a5b6347f82a1e840ac08bc29be8cda0, type: 3}
       propertyPath: initialAttackCooldown
-      value: 1.2
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7749459210354307035, guid: 9a5b6347f82a1e840ac08bc29be8cda0, type: 3}
       propertyPath: m_Materials.Array.data[0]

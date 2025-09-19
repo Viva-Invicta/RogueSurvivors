@@ -20,7 +20,7 @@ namespace DunDungeons
         {
             foreach (var setting in dropSettings)
             {
-                var random = UnityEngine.Random.Range(0, 1);
+                var random = UnityEngine.Random.Range(0f, 1f);
                 if (random < setting.Probability)
                 {
                     var droppedItem = Instantiate(setting.ItemPrefab);

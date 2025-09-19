@@ -16,8 +16,8 @@ namespace DunDungeons
         [SerializeField] protected float initialMovementSpeed;
         [SerializeField] protected float rotationDuration = 0.2f;
         [SerializeField] protected CharacterController characterController;
-        [SerializeField] private float initialDashSpeed;
-        [SerializeField] private float initialDashDuration;
+        [SerializeField] private float dashSpeedMultiplier = 2;
+        [SerializeField] private float dashDuration = 1;
         [SerializeField] private float initialDashCooldown;
 
         private float passedDashCooldownTime;
@@ -26,14 +26,11 @@ namespace DunDungeons
 
         public float DashCooldownDuration => initialDashCooldown * dashCooldownModifier;
         public float MovementSpeed => initialMovementSpeed * movementSpeedModifier;
-        private float DashSpeed => initialDashSpeed * dashSpeedModifier;
-        private float DashDuration => initialDashDuration * dashDurationModifier;
+        private float DashSpeed => MovementSpeed * dashSpeedMultiplier;
 
         private Transform characterTransform;
 
         private Modifier movementSpeedModifier;
-        private Modifier dashSpeedModifier;
-        private Modifier dashDurationModifier;
         private Modifier dashCooldownModifier;
 
         private Tween rotationTween;
@@ -51,9 +48,7 @@ namespace DunDungeons
             var faction = state.Faction;
 
             movementSpeedModifier = modifiersService.GetModifier(faction, ModifierType.MovementSpeed);
-            dashDurationModifier = modifiersService.GetModifier(faction, ModifierType.DashDuration);
             dashCooldownModifier = modifiersService.GetModifier(faction, ModifierType.DashCooldown);
-            dashSpeedModifier = modifiersService.GetModifier(faction, ModifierType.DashSpeed);
 
             movementSpeedModifier.Updated += HandleMovementSpeedModifierUpdated;
 
@@ -105,7 +100,7 @@ namespace DunDungeons
         {
             var passedDashTime = 0f;
 
-            while (passedDashTime < DashDuration)
+            while (passedDashTime < dashDuration)
             {
                 passedDashTime += Time.fixedDeltaTime;
                 characterController

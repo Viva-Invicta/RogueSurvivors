@@ -8,6 +8,9 @@ namespace DunDungeons
         private Transform canvas;
 
         [SerializeField]
+        private UpgradesWindow upgradesWindow;
+
+        [SerializeField]
         private EntityHealthBar healthBarPrefab;
 
         [SerializeField]
@@ -31,5 +34,10 @@ namespace DunDungeons
             return dashBar;
         }
 
+        public void ShowUpgradesWindow(UpgradesConfiguration upgradesConfiguration)
+        {
+            upgradesWindow.gameObject.SetActive(true);
+            upgradesWindow.Show(upgradesConfiguration);
+        }
     }
 }
