@@ -1,25 +1,27 @@
 using System.Linq;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace DunDungeons
 {
-    public class EnemySpawner
+    public class EnemySpawner : MonoBehaviour
     {
-        private SpawnerService spawnerService;
+        [SerializeField]
+        private EnemySpawnConfig config;
+
         private EntitiesService entitiesService;
         private UIService uiService;
         private PrefabsService prefabsService;
+        private SpawnerService spawnerService;
 
         private ServiceLocator serviceLocator;
 
-        private int maxEnemiesCount;
-
         public void Initialize(ServiceLocator serviceLocator)
         {
-            spawnerService = serviceLocator.SpawnerService;
             entitiesService = serviceLocator.EntitiesService;
             uiService = serviceLocator.UIService;
             prefabsService = serviceLocator.PrefabsService;
+            spawnerService = serviceLocator.SpawnerService;
             this.serviceLocator = serviceLocator;
         }
 
@@ -30,34 +32,18 @@ namespace DunDungeons
                 return default;
             }
 
-            var spawnPoints = spawnerService.SpawnPoints;
-
+            var spawnPoints = config.SpawnPoints;
             var randomPointIndex = Random.Range(0, spawnPoints.Count);
             var spawnPoint = spawnPoints.ElementAt(randomPointIndex);
 
-            var characterType = default(CharacterType);
-            var random = Random.Range(0, 10);
-
-            if (random == 0)
-            {
-                characterType = (CharacterType.BigSkeleton);
-            }
-            else if (random < 7)
-            {
-                characterType = (CharacterType.Skeleton);
-            }
-            else
-            {
-                characterType = CharacterType.FastSkeleton;
-            }
+            var characterType = config.GetRandomCharacterType();
             var enemyController = GameObject.Instantiate(prefabsService.GetCharacterPrefabByType(characterType));
 
             var enemyGO = enemyController.gameObject;
 
-            var spawnXPosition = spawnPoint.position.x + Random.Range(-spawnerService.SpawnRadius, spawnerService.SpawnRadius);
-            var spawnZPosition = spawnPoint.position.z + Random.Range(-spawnerService.SpawnRadius, spawnerService.SpawnRadius);
+            var spawnXPosition = spawnPoint.position.x + Random.Range(-config.SpawnRadius, config.SpawnRadius);
+            var spawnZPosition = spawnPoint.position.z + Random.Range(-config.SpawnRadius, config.SpawnRadius);
             var spawnPosition = new Vector3(spawnXPosition, spawnPoint.position.y, spawnZPosition);
-       
 
             enemyGO.transform.position = spawnPosition;
 
@@ -66,6 +52,13 @@ namespace DunDungeons
             enemyController.Initialize(serviceLocator);
 
             return enemyController;
+        }
+        private void OnDrawGizmosSelected()
+        {
+            foreach (var spawnPoint in config.SpawnPoints)
+            {
+                Gizmos.DrawWireSphere(spawnPoint.position, config.SpawnRadius * 2);
+            }
         }
     }
 }

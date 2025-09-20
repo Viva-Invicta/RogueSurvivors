@@ -11,6 +11,7 @@ namespace DunDungeons
         [SerializeField]
         private bool debugSpawnEnemies = true;
 
+        [SerializeField]
         private EnemySpawner enemySpawner;
 
         private void OnEnable()
@@ -37,7 +38,6 @@ namespace DunDungeons
 
             if (debugSpawnEnemies)
             {
-                enemySpawner = new EnemySpawner();
                 enemySpawner.Initialize(serviceLocator);
                 SpawnSkeleton();
             }
