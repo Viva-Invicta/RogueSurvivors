@@ -3290,6 +3290,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offset: {x: -0.81, y: 26.8, z: -11.9}
+  boundsSize: {x: 5, y: 2}
+  smoothSpeed: 1
+  fastSpeed: 5
 --- !u!1 &520924684
 GameObject:
   m_ObjectHideFlags: 0
@@ -3319,8 +3322,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1825861749}
+  m_Children: []
   m_Father: {fileID: 1053550547}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &520924686
@@ -3335,11 +3337,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66c279612e43add4a84359eef0deb67b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <SpawnPoints>k__BackingField:
-  - {fileID: 1606195948}
-  - {fileID: 1954586719}
-  <SpawnRadius>k__BackingField: 2
-  <MaxEnemiesCount>k__BackingField: 45
+  <MaxEnemiesCount>k__BackingField: 81
 --- !u!1001 &524763693
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5730,7 +5728,7 @@ Light:
   m_CookieSize: 10
   m_Shadows:
     m_Type: 2
-    m_Resolution: -1
+    m_Resolution: 0
     m_CustomResolution: -1
     m_Strength: 0.495
     m_Bias: 0
@@ -6219,7 +6217,7 @@ Light:
   m_CookieSize: 10
   m_Shadows:
     m_Type: 2
-    m_Resolution: -1
+    m_Resolution: 0
     m_CustomResolution: -1
     m_Strength: 0.495
     m_Bias: 0
@@ -6380,7 +6378,7 @@ Light:
   m_CookieSize: 10
   m_Shadows:
     m_Type: 2
-    m_Resolution: -1
+    m_Resolution: 0
     m_CustomResolution: -1
     m_Strength: 0.495
     m_Bias: 0
@@ -6984,6 +6982,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debugSpawnEnemies: 1
+  enemySpawner: {fileID: 1854455637}
 --- !u!1001 &1065884298
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8098,7 +8097,7 @@ Light:
   m_CookieSize: 10
   m_Shadows:
     m_Type: 2
-    m_Resolution: -1
+    m_Resolution: 0
     m_CustomResolution: -1
     m_Strength: 0.495
     m_Bias: 0
@@ -11030,7 +11029,7 @@ Transform:
   m_Children:
   - {fileID: 1606195948}
   - {fileID: 1954586719}
-  m_Father: {fileID: 520924685}
+  m_Father: {fileID: 1854455638}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1833145055
 PrefabInstance:
@@ -11286,6 +11285,64 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 35fff21607ace004bad82aea259800ca, type: 3}
   m_PrefabInstance: {fileID: 1848669582}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1854455636
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1854455638}
+  - component: {fileID: 1854455637}
+  m_Layer: 0
+  m_Name: Spawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1854455637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1854455636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9184cffed720e804aa59dd7ae87928af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  config:
+    <MaxEnemiesCount>k__BackingField: 10
+    <SpawnRadius>k__BackingField: 3
+    <SpawnPoints>k__BackingField:
+    - {fileID: 1954586719}
+    - {fileID: 1606195948}
+    <Enemies>k__BackingField:
+    - CharacterType: 1
+      Weight: 9
+    - CharacterType: 3
+      Weight: 2
+    - CharacterType: 2
+      Weight: 1
+--- !u!4 &1854455638
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1854455636}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1825861749}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1887413403
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12051,7 +12108,7 @@ Light:
   m_CookieSize: 10
   m_Shadows:
     m_Type: 2
-    m_Resolution: -1
+    m_Resolution: 0
     m_CustomResolution: -1
     m_Strength: 0.495
     m_Bias: 0
@@ -12398,7 +12455,7 @@ Light:
   m_CookieSize: 10
   m_Shadows:
     m_Type: 2
-    m_Resolution: -1
+    m_Resolution: 0
     m_CustomResolution: -1
     m_Strength: 0.495
     m_Bias: 0
@@ -13053,3 +13110,4 @@ SceneRoots:
   - {fileID: 1843404282}
   - {fileID: 663168919}
   - {fileID: 484914720}
+  - {fileID: 1854455638}
