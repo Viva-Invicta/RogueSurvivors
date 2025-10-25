@@ -9,12 +9,29 @@ namespace AutoBattler
         [SerializeField] private GridCellView cellPrefab;
         [SerializeField] private GridConfiguration gridData;
 
-        public GridCellView[,] Cells;
+        public int SizeX => cells.GetLength(0);
+        public int SizeY => cells.GetLength(1);
+
+        private GridCellView[,] cells;
+
+        public GridCellView[,] Cells
+        {
+            get
+            {
+                if (cells == null || cells.Length == 0)
+                {
+                    Debug.LogError($"{nameof(RoomGrid)} : Can't return any cell views because none of them drawn yet!");
+                }
+                return cells;
+            }
+        }
 
         public void DrawGrid()
         {
             if (!IsValidData())
             {
+                Debug.LogError($"{nameof(RoomGrid)} : Can't draw any cells because configuration is invalid!");
+
                 return;
             }
 
@@ -36,7 +53,7 @@ namespace AutoBattler
                 }
             }
 
-            Cells = grid;
+            cells = grid;
         }
 
         private void OnDrawGizmos()

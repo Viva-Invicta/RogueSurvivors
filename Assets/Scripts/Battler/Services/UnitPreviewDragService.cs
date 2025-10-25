@@ -50,18 +50,14 @@ namespace AutoBattler
             var previewInstance = SpawnPreview(unitType);
             ActivePreview = previewInstance;
 
-            previewInstance.IsPreview = true;
+            previewInstance.SetState(UnitState.Preview);
         }
 
         private UnitBehaviourController SpawnPreview(UnitType unitType)
         {
             var previewPrefab = unitsPrefabsService.GetUnitPrefabByType(unitType);
             var previewInstance = Instantiate(previewPrefab);
-            foreach (var renderer in previewInstance.GetComponentsInChildren<Renderer>())
-            {
-                var previewMaterial = new Material(renderer.material);
-                previewMaterial.color = new Color(previewMaterial.color.r, previewMaterial.color.g, previewMaterial.color.b, previewMaterial.color.a);
-            }
+            previewInstance.Initialize(UnitFaction.Player);
 
             return previewInstance;
         }

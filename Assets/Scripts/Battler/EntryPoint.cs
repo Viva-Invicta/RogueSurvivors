@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 namespace AutoBattler
@@ -14,15 +15,16 @@ namespace AutoBattler
 
         private void Start()
         {
-            var unitShopView = serviceLocator.UIService.CreateOrShowView<UnitShopView>(UIViewType.UnitShop);
-            unitShopView.Initialize(serviceLocator);
+            var unitInventoryView = serviceLocator.UIService.CreateOrShowView<UnitInventoryView>(UIViewType.UnitInventory);
+            unitInventoryView.Initialize(serviceLocator);
 
-            var unitsShopService = serviceLocator.UnitShopService;
+            var unitInventoryService = serviceLocator.UnitInventoryService;
 
-            unitsShopService.SetView(unitShopView);
-            unitsShopService.AddAvailableUnit(UnitType.Knight0_0);
+            unitInventoryService.SetView(unitInventoryView);
+            unitInventoryService.AddAvailableUnit(UnitType.Skeleton0_0);
+            unitInventoryService.AddAvailableUnit(UnitType.Knight0_0);
 
-            unitShopView.EntryDragged += HandleUnitShopEntryDragged;
+            unitInventoryView.EntryDragged += HandleUnitInventoryEntryDragged;
             serviceLocator.UnitPreviewDragService.PreviewDragReleased += HandleUnitPreviewReleased;
 
             var roomsService = serviceLocator.RoomsService;
@@ -30,7 +32,7 @@ namespace AutoBattler
             roomsService.SelectNextRoom();
         }
 
-        private void HandleUnitShopEntryDragged(UnitType unitType)
+        private void HandleUnitInventoryEntryDragged(UnitType unitType)
         {
             serviceLocator.UnitPreviewDragService.StartPreviewDrag(unitType);
             serviceLocator.GridService.HighlightCells();
@@ -49,7 +51,7 @@ namespace AutoBattler
             {
                 if (gridService.TryPlaceEntityAtPosition(activePreview.gameObject, hit.point))
                 {
-                    activePreview.IsPreview = false;
+                    activePreview.SetState(UnitState.Waiting);
                 }
                 else
                 {
@@ -63,7 +65,22 @@ namespace AutoBattler
 
         private void HandleRoomSelected()
         {
-            serviceLocator.GridService.SetActiveRoomGrid(serviceLocator.RoomsService.ActiveRoomGrid);
+            var activeRoomGrid = serviceLocator.RoomsService.ActiveRoomGrid;
+            var gridService = serviceLocator.GridService;
+            var prefabsService = serviceLocator.UnitsPrefabsService;
+
+            gridService.SetActiveRoomGrid(activeRoomGrid);
+
+            var enemyFormationConfiguration = serviceLocator.EnemyFormationConfigsService.GetFormationConfigForRoom(activeRoomGrid.SizeX, activeRoomGrid.SizeY);
+
+            var enemyFormation = enemyFormationConfiguration.WaveFormations.First();
+            foreach (var enemy in enemyFormation.Enemies)
+            {
+                var enemyInstance = Instantiate(prefabsService.GetUnitPrefabByType(enemy.UnitType));
+                enemyInstance.Initialize(UnitFaction.Enemy);
+                gridService.TryPlaceEntityAtGridPosition(enemyInstance.gameObject, enemy.GridX, enemy.GridY);
+                enemyInstance.transform.Rotate(0, 180, 0);
+            }
         }
 
         private ServiceLocator CatchServiceLocator()

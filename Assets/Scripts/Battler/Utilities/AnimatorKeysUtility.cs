@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace DunDungeons
+namespace AutoBattler
 {
     public static class AnimatorKeysUtility
     {
@@ -15,6 +15,11 @@ namespace DunDungeons
             { AnimatorKeyIdentifier.Attack1, "Attack1" },
             { AnimatorKeyIdentifier.Attack2, "Attack2" },
             { AnimatorKeyIdentifier.Attack3, "Attack3" },
+
+            { AnimatorKeyIdentifier.MoveSpeed, "Speed" },
+            { AnimatorKeyIdentifier.AttackSpeed, "AttackSpeed" },
+
+            { AnimatorKeyIdentifier.Preview, "Preview" }
         };
 
         private static Dictionary<AnimatorKeyIdentifier, int> AnimatorHashes = new Dictionary<AnimatorKeyIdentifier, int>();
@@ -34,7 +39,7 @@ namespace DunDungeons
                 return true;
             }
 
-            Debug.LogError("No animation key with id " + identifier + "!");
+            Debug.LogError($"{nameof(AnimatorKeysUtility)} : No animation key with id {identifier}");
 
             return false;
         }
@@ -48,6 +53,9 @@ namespace DunDungeons
         Walking,
         Attack1,
         Attack2,
-        Attack3
+        Attack3,
+        AttackSpeed,
+        MoveSpeed,
+        Preview
     }
 }

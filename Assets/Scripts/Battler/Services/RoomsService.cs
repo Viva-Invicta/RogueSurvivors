@@ -13,6 +13,8 @@ namespace AutoBattler
 
         public RoomGrid ActiveRoomGrid { get; private set; }
 
+        public int CurrentRoomDifficulty => 0;
+
         public void SelectNextRoom()
         {
             //TODO

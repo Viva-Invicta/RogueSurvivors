@@ -31,7 +31,7 @@ namespace AutoBattler
 
     public enum UIViewType
     {
-        UnitShop,
-        UnitShopEntry
+        UnitInventory,
+        UnitInventoryEntry
     }
 }

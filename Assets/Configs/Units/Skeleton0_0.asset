@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7310ddff2dff3f54f9bc25bdd82e3734, type: 3}
-  m_Name: Knight0_0
+  m_Name: Skeleton0_0
   m_EditorClassIdentifier: 
-  unitType: 0
-  interfaceIcon: {fileID: 21300000, guid: 2f81f9e901b84cf4f9e4cc3cdd41cfff, type: 3}
+  unitType: 1
+  interfaceIcon: {fileID: 21300000, guid: aaae7a88591573645874ffe4c4a2db6b, type: 3}
   interfaceDescriptionKey: 

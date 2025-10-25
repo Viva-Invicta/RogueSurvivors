@@ -6,19 +6,19 @@ using UnityEngine;
 
 namespace AutoBattler
 {
-    public class UnitShopView : UIView
+    public class UnitInventoryView : UIView
     {
         public event Action<UnitType> EntryDragged;
 
         [SerializeField]
-        private UIViewType viewType = UIViewType.UnitShop;
+        private UIViewType viewType = UIViewType.UnitInventory;
 
         public override UIViewType ViewType => viewType;
 
         private UnitPrefabsService unitsPrefabsService;
         private UIPrefabsService uiPrefabsService;
 
-        private HashSet<UnitShopEntryView> unitShopEntryViews = new HashSet<UnitShopEntryView>();
+        private HashSet<UnitInventoryEntryView> entries = new HashSet<UnitInventoryEntryView>();
 
         public override void Initialize(ServiceLocator serviceLocator)
         {
@@ -36,13 +36,13 @@ namespace AutoBattler
             foreach (var unitTypeCountPair in actualUnits)
             {
                 var unitType = unitTypeCountPair.Key;
-                var views = unitShopEntryViews.Where(entryView => entryView.UnitType == unitType);
+                var views = entries.Where(entryView => entryView.UnitType == unitType);
 
                 var unitsCount = unitTypeCountPair.Value;
                 if (views.Count() > unitsCount)
                 {
-                    var lastView = unitShopEntryViews.Last();
-                    unitShopEntryViews.Remove(lastView);
+                    var lastView = entries.Last(entryView => entryView.UnitType == unitType);
+                    entries.Remove(lastView);
                     lastView.Release();
 
                     Destroy(lastView.gameObject);
@@ -61,13 +61,14 @@ namespace AutoBattler
         private void AddView(UnitType viewType)
         {
             var unitConfiguration = unitsPrefabsService.GetUnitPrefabByType(viewType).Configuration;
-            var uiEntryPrefab = uiPrefabsService.GetUIPrefabByType(UIViewType.UnitShopEntry);
+            var uiEntryPrefab = uiPrefabsService.GetUIPrefabByType(UIViewType.UnitInventoryEntry);
 
-            var shopEntry = Instantiate(uiEntryPrefab).GetComponent<UnitShopEntryView>();
-            shopEntry.transform.SetParent(transform, false);
-            shopEntry.DragStarted += () => HandleEntryDragged(shopEntry.UnitType);
+            var inventoryEntry = Instantiate(uiEntryPrefab).GetComponent<UnitInventoryEntryView>();
+            entries.Add(inventoryEntry);
+            inventoryEntry.transform.SetParent(transform, false);
+            inventoryEntry.DragStarted += () => HandleEntryDragged(inventoryEntry.UnitType);
 
-            shopEntry.Initialize(viewType, unitConfiguration.ShopIcon);
+            inventoryEntry.Initialize(viewType, unitConfiguration.InterfaceIcon);
         }
         
         private void HandleEntryDragged(UnitType unitType)
