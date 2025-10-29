@@ -18,7 +18,8 @@ namespace AutoBattler
         {
             targetSelectorFactory = new TargetSelectorFactory(serviceLocator.EntitiesService);
 
-            var unitInventoryView = serviceLocator.UIService.CreateOrShowView<UnitInventoryView>(UIViewType.UnitInventory);
+            var uiService = serviceLocator.UIService;
+            var unitInventoryView = uiService.CreateOrShowView<UnitInventoryView>(UIViewType.UnitInventory);
             unitInventoryView.Initialize(serviceLocator);
 
             var unitInventoryService = serviceLocator.UnitInventoryService;
@@ -33,6 +34,9 @@ namespace AutoBattler
             var roomsService = serviceLocator.RoomsService;
             roomsService.NextRoomSelected += HandleRoomSelected;
             roomsService.SelectNextRoom();
+
+            var startFightButtonView = uiService.CreateOrShowView<SimpleButtonView>(UIViewType.StartFightButton);
+            startFightButtonView.Pressed += HandleStartFightButtonPressed;
         }
 
         private void HandleUnitInventoryEntryDragged(UnitType unitType)
@@ -85,6 +89,14 @@ namespace AutoBattler
                 gridService.TryPlaceEntityAtGridPosition(enemyInstance.gameObject, enemy.GridX, enemy.GridY);
                 enemyInstance.transform.Rotate(0, 180, 0);
                 serviceLocator.EntitiesService.AddUnit(enemyInstance);
+            }
+        }
+
+        private void HandleStartFightButtonPressed()
+        {
+            foreach (var unit in serviceLocator.EntitiesService.Units)
+            {
+                unit.SetState(UnitState.Fight);
             }
         }
 

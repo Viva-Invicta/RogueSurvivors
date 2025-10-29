@@ -3720,6 +3720,7 @@ MonoBehaviour:
   <UIPrefabs>k__BackingField:
   - {fileID: 6129885653521904305, guid: 6ab9e6e595237bb46b170d96cfd9ffff, type: 3}
   - {fileID: 3630747325046487959, guid: cb9bec2429f3b72418a2bc3b2a7f3915, type: 3}
+  - {fileID: 7829110804136957943, guid: 6cc1409914cd7bc43b1515f50c212bd6, type: 3}
 --- !u!1001 &941735912
 PrefabInstance:
   m_ObjectHideFlags: 0
