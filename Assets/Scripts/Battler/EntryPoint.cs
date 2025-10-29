@@ -52,6 +52,7 @@ namespace AutoBattler
                 if (gridService.TryPlaceEntityAtPosition(activePreview.gameObject, hit.point))
                 {
                     activePreview.SetState(UnitState.Waiting);
+                    serviceLocator.EntitiesService.AddUnit(activePreview);
                 }
                 else
                 {
@@ -80,6 +81,7 @@ namespace AutoBattler
                 enemyInstance.Initialize(UnitFaction.Enemy);
                 gridService.TryPlaceEntityAtGridPosition(enemyInstance.gameObject, enemy.GridX, enemy.GridY);
                 enemyInstance.transform.Rotate(0, 180, 0);
+                serviceLocator.EntitiesService.AddUnit(enemyInstance);
             }
         }
 

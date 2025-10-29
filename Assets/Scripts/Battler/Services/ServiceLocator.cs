@@ -12,6 +12,7 @@ namespace AutoBattler
         [field: SerializeField] public RoomsService RoomsService { get; private set; }
         [field: SerializeField] public UnitInventoryService UnitInventoryService { get; private set; }
         [field: SerializeField] public EnemyFormationConfigsService EnemyFormationConfigsService { get; private set; }
+        [field: SerializeField] public EntitiesService EntitiesService { get; private set; }
 
         public void InitializeServices()
         {

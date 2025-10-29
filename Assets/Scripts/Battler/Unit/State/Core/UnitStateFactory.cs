@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace AutoBattler
 {
     public class UnitStateFactory : IUnitStateFactory
     {
-        private readonly Dictionary<UnitState, Func<UnitBehaviourController, UnitStateBase>> _factories;
+        private readonly Dictionary<UnitState, Func<UnitBehaviourController, UnitStateBase>> factories;
 
         public UnitStateFactory()
         {
-            _factories = new Dictionary<UnitState, Func<UnitBehaviourController, UnitStateBase>>
+            factories = new Dictionary<UnitState, Func<UnitBehaviourController, UnitStateBase>>
             {
                 [UnitState.Preview] = controller => new UnitPreviewState(controller),
                 [UnitState.Waiting] = controller => new UnitWaitingState(controller),
@@ -20,10 +21,14 @@ namespace AutoBattler
 
         public UnitStateBase CreateState(UnitState state, UnitBehaviourController controller)
         {
-            if (_factories.TryGetValue(state, out var factory))
+            if (factories.TryGetValue(state, out var factory))
+            {
                 return factory(controller);
+            }
 
-            throw new ArgumentException($"No factory registered for state: {state}");
+            Debug.LogError($"{nameof(UnitStateFactory)} : Could not create state {state} because there's no factory for it");
+
+            return default;
         }
     }
 }

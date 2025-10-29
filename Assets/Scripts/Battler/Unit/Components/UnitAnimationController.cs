@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace AutoBattler
 {
-    public class UnitAnimationController : MonoBehaviour
+    public class UnitAnimationController : MonoBehaviour, IInitializableWithUnitStatusComponent
     {
         [SerializeField]
         private Animator animator;
@@ -22,7 +22,7 @@ namespace AutoBattler
 
         public void Initialize(IUnitStatusProvider unitStatus)
         {
-            SetMovementSpeed(unitStatus.MovementSpeed);
+            SetMovementSpeed(unitStatus.BaseMovementSpeed);
         }
 
         public void SetAnimationByKey(AnimatorKeyIdentifier key, bool isActive)

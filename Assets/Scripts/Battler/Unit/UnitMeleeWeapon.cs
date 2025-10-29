@@ -8,11 +8,13 @@ namespace AutoBattler
         [SerializeField] private HashSet<UnitBehaviourController> hitTargets = new HashSet<UnitBehaviourController>();
 
         private bool isActive;
-        private UnitFaction ownerFaction;
+        private UnitBehaviourController owner;
+        private DamageType damageType;
 
-        public void Initialize(UnitFaction ownerFaction)
+        public void Initialize(UnitBehaviourController owner, DamageType damageType)
         {
-            this.ownerFaction = ownerFaction;
+            this.owner = owner;
+            this.damageType = damageType;
         }
 
         private void OnTriggerEnter(Collider other)
@@ -32,15 +34,22 @@ namespace AutoBattler
                 return;
             }
 
+            var otherUnitStatusProvider = unit.UnitStatusProvider;
+
             var isValidTarget =
-                unit.State == UnitState.Fight &&
-                unit.UnitStatusProvider.Faction != ownerFaction;
+               otherUnitStatusProvider.State == UnitState.Fight &&
+               otherUnitStatusProvider.Faction != owner.UnitStatusProvider.Faction;
 
             if (!isValidTarget)
             {
                 return;
             }
 
+            var ownerStatusProvider = owner.UnitStatusProvider;
+
+            var damage = ownerStatusProvider.UnitValuesCalculator.CalculateOutcomingDamage(damageType);
+            unit.RecieveDamage(damageType, damage);
+            
             hitTargets.Add(unit);
         }
 

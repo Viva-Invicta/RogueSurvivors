@@ -12,7 +12,7 @@ namespace AutoBattler
         {
             base.EnterState();
 
-            SetPreviewAnimation(true);
+            SetPreviewAnimation(isPreview: true);
             SetPhysicsLayer(isPreviewLayer: true);
         }
 
@@ -20,7 +20,7 @@ namespace AutoBattler
         {
             base.ExitState();
 
-            SetPreviewAnimation(false);
+            SetPreviewAnimation(isPreview: false);
             SetPhysicsLayer(isPreviewLayer: false);
         }
 
