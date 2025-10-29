@@ -9,7 +9,9 @@
             StateOwner = stateOwner;
         }
 
-        public virtual void EnterState() { }
-        public virtual void ExitState() { }
+        public virtual void Enter() { }
+        public virtual void Exit() { }
+
+        public virtual void Process(float deltaTime) { }
     }
 }

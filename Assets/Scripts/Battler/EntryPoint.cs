@@ -6,6 +6,7 @@ namespace AutoBattler
     public class EntryPoint : MonoBehaviour
     {
         private ServiceLocator serviceLocator;
+        private TargetSelectorFactory targetSelectorFactory;
 
         private void OnEnable()
         {
@@ -15,6 +16,8 @@ namespace AutoBattler
 
         private void Start()
         {
+            targetSelectorFactory = new TargetSelectorFactory(serviceLocator.EntitiesService);
+
             var unitInventoryView = serviceLocator.UIService.CreateOrShowView<UnitInventoryView>(UIViewType.UnitInventory);
             unitInventoryView.Initialize(serviceLocator);
 
@@ -78,7 +81,7 @@ namespace AutoBattler
             foreach (var enemy in enemyFormation.Enemies)
             {
                 var enemyInstance = Instantiate(prefabsService.GetUnitPrefabByType(enemy.UnitType));
-                enemyInstance.Initialize(UnitFaction.Enemy);
+                enemyInstance.Initialize(UnitFaction.Enemy, targetSelectorFactory);
                 gridService.TryPlaceEntityAtGridPosition(enemyInstance.gameObject, enemy.GridX, enemy.GridY);
                 enemyInstance.transform.Rotate(0, 180, 0);
                 serviceLocator.EntitiesService.AddUnit(enemyInstance);

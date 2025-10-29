@@ -34,18 +34,18 @@ namespace AutoBattler
                 return;
             }
 
-            var otherUnitStatusProvider = unit.UnitStatusProvider;
+            var otherUnitStatusProvider = unit.StatusProvider;
 
             var isValidTarget =
                otherUnitStatusProvider.State == UnitState.Fight &&
-               otherUnitStatusProvider.Faction != owner.UnitStatusProvider.Faction;
+               otherUnitStatusProvider.Faction != owner.StatusProvider.Faction;
 
             if (!isValidTarget)
             {
                 return;
             }
 
-            var ownerStatusProvider = owner.UnitStatusProvider;
+            var ownerStatusProvider = owner.StatusProvider;
 
             var damage = ownerStatusProvider.UnitValuesCalculator.CalculateOutcomingDamage(damageType);
             unit.RecieveDamage(damageType, damage);

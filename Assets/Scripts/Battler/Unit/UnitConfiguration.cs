@@ -38,7 +38,7 @@ namespace AutoBattler
 
         [BoxGroup("In-game settings")]
         [SerializeField]
-        private float baseAttackDistance = 0.2f;
+        private float baseAttackDistance = 1f;
 
         [BoxGroup("In-game settings")]
         [SerializeField]

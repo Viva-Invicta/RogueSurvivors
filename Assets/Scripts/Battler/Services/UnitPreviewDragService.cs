@@ -10,6 +10,7 @@ namespace AutoBattler
         private UnitPrefabsService unitsPrefabsService;
       
         public UnitBehaviourController ActivePreview { get; private set; }
+        private TargetSelectorFactory targetSelectorFactory;
 
         private void Update()
         {
@@ -43,6 +44,7 @@ namespace AutoBattler
         public void Initialize(ServiceLocator serviceLocator)
         {
             unitsPrefabsService = serviceLocator.UnitsPrefabsService;
+            targetSelectorFactory = new TargetSelectorFactory(serviceLocator.EntitiesService);
         }
 
         public void StartPreviewDrag(UnitType unitType)
@@ -57,7 +59,7 @@ namespace AutoBattler
         {
             var previewPrefab = unitsPrefabsService.GetUnitPrefabByType(unitType);
             var previewInstance = Instantiate(previewPrefab);
-            previewInstance.Initialize(UnitFaction.Player);
+            previewInstance.Initialize(UnitFaction.Player, targetSelectorFactory);
 
             return previewInstance;
         }

@@ -12,7 +12,6 @@ namespace AutoBattler
 
         [SerializeField] private float delayBeforeWeaponActivation = 0.2f; // in percent
         [SerializeField] private float earlyWeaponDeactivation = 0.2f;     // in percent
-
         [SerializeField] private UnitMeleeWeapon meleeWeapon;
 
         protected ServiceLocator ServiceLocator { get; private set; }
@@ -27,7 +26,7 @@ namespace AutoBattler
             this.unitStatus = unitStatus;
         }
 
-        public void Attack()
+        public void Attack(UnitBehaviourController target)
         {
             if (unitStatus.IsAttackInCooldown || unitStatus.State != UnitState.Fight || unitStatus.IsAttackLocked)
             {

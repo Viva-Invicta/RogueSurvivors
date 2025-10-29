@@ -6,14 +6,14 @@ namespace AutoBattler
         {
         }
 
-        public override void EnterState()
+        public override void Enter()
         {
-            base.EnterState();
+            base.Enter();
         }
 
-        public override void ExitState()
+        public override void Exit()
         {
-            base.ExitState();
+            base.Exit();
         }
     }
 }

@@ -8,17 +8,17 @@ namespace AutoBattler
         {
         }
 
-        public override void EnterState()
+        public override void Enter()
         {
-            base.EnterState();
+            base.Enter();
 
             SetPreviewAnimation(isPreview: true);
             SetPhysicsLayer(isPreviewLayer: true);
         }
 
-        public override void ExitState()
+        public override void Exit()
         {
-            base.ExitState();
+            base.Exit();
 
             SetPreviewAnimation(isPreview: false);
             SetPhysicsLayer(isPreviewLayer: false);
@@ -26,9 +26,10 @@ namespace AutoBattler
 
         private void SetPreviewAnimation(bool isPreview)
         {
-            if (StateOwner.AnimationController)
+            if (StateOwner)
             {
-                StateOwner.AnimationController.SetPreview(isPreview);
+                var animationController = StateOwner.ComponentsContainer.AnimationController;
+                animationController.SetPreview(isPreview);
             }
         }
 

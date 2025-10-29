@@ -1,41 +1,48 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace AutoBattler
 {
     public class UnitBehaviourController : MonoBehaviour
     {
-        private UnitStateBase unitState;
-        private UnitStatus unitStatus;
+        private UnitStateBase state;
+        private UnitStatus status;
         private IUnitStateFactory stateFactory;
+        private TargetSelectorFactory targetSelectorFactory;
 
         [field: SerializeField] public UnitConfiguration Configuration { get; private set; }
         [field: SerializeField] public UnitComponentsContainer ComponentsContainer { get; private set; }
 
-        public IUnitStatusProvider UnitStatusProvider => unitStatus;
+        public IUnitStatusProvider StatusProvider => status;
+        public TargetSelectorFactory TargetSelectorFactory => targetSelectorFactory;
 
-        public void Initialize(UnitFaction faction)
+        private void Update()
+        {
+            state?.Process(Time.deltaTime);
+        }
+
+        public void Initialize(UnitFaction faction, TargetSelectorFactory targetSelectorFactory)
         {
             stateFactory = new UnitStateFactory();
-            unitStatus = new UnitStatusFactory().Create(faction, Configuration);
+            status = new UnitStatusFactory().Create(faction, Configuration);
+            this.targetSelectorFactory = targetSelectorFactory;
 
-            ComponentsContainer.InitializeComponents(unitStatus);
+            ComponentsContainer.InitializeComponents(status);
         }
 
         public void SetState(UnitState state)
         {
-            unitState?.ExitState();
+            this.state?.Exit();
 
-            unitState = stateFactory.CreateState(state, this);
-            unitStatus.State = state;
+            this.state = stateFactory.CreateState(state, this);
+            status.State = state;
 
-            unitState?.EnterState();
+            this.state?.Enter();
         }
 
         public void RecieveDamage(DamageType damageType, float value)
         {
-            var damage = unitStatus.UnitValuesCalculator.CalculateIncomingDamage(value, damageType);
-            unitStatus.Health.Consume(damage);
+            var damage = status.UnitValuesCalculator.CalculateIncomingDamage(value, damageType);
+            status.Health.Consume(damage);
         }
     }
 }
