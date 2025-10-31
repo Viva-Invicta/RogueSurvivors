@@ -23,11 +23,13 @@ namespace AutoBattler
         public UnitValuesCalculator UnitValuesCalculator { get; set; }
 
         public UnitWeapon Weapon { get; set; }
+
+        public (int x, int y) GridPosition { get; set; }
     }
 
     public interface IUnitStatusProvider
     {
-        public UnitConfiguration Configuration { get; set; }
+        public UnitConfiguration Configuration { get; }
         public UnitFaction Faction { get; }
 
         public UnitState State { get; }
@@ -41,11 +43,13 @@ namespace AutoBattler
 
         public UnitValuesCalculator UnitValuesCalculator { get; }
         public UnitWeapon Weapon { get; }
+
+        public (int x, int y) GridPosition { get; }
     }
 
     public interface IUnitStatusSetter
     {
-        public UnitConfiguration Configuration { get; set; }
+        public UnitConfiguration Configuration { set; }
         public UnitFaction Faction { set; }
 
         public UnitState State { set; }
@@ -61,5 +65,6 @@ namespace AutoBattler
 
         public UnitWeapon Weapon { set; }
 
+        public (int x, int y) GridPosition { set; }
     }
 }

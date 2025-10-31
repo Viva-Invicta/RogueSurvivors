@@ -9,19 +9,18 @@ namespace AutoBattler
         [SerializeField]
         private List<EnemyFormationConfig> formationConfigurations;
 
-        public EnemyFormationConfig GetFormationConfigForRoom(int roomWidth, int roomHeight)
-        {
-            var formation = formationConfigurations.FirstOrDefault(configuration =>
-            {
-                return configuration.RoomSize.x == roomWidth && configuration.RoomSize.y == roomHeight;
-            });
+        public EnemyFormationConfig CurrentEnemiesFormation { get; private set; }
 
-            if (formation == default)
+        public void SelectFormationConfigForRoom(int roomWidth, int roomHeight)
+        {
+            CurrentEnemiesFormation = formationConfigurations.FirstOrDefault(configuration =>
+               configuration.RoomSize.x == roomWidth && configuration.RoomSize.y == roomHeight
+            );
+
+            if (CurrentEnemiesFormation == default)
             {
                 Debug.LogError($"{nameof(EnemyFormationConfigsService)} : Can't find formation config for room size {roomWidth} {roomHeight}");
             }
-
-            return formation;
         }
     }
 }

@@ -27,11 +27,14 @@ namespace AutoBattler
             }
         }
 
-        public IEnumerable<UnitBehaviourController> SelectFightingUnits(Func<UnitBehaviourController, bool> predicate)
+        public IEnumerable<UnitBehaviourController> SelectFightingUnits(Func<UnitBehaviourController, bool> predicate = null)
         {
-            return units
-                .Where(predicate)
-                .Where(unit => unit.StatusProvider.State == UnitState.Fight);
+            if (predicate == null)
+            {
+                return units.Where(unit => unit.StatusProvider.State == UnitState.Fight);
+            }
+
+            return units.Where(unit => unit.StatusProvider.State == UnitState.Fight && predicate(unit));
         }
 
         public IEnumerable<UnitBehaviourController> SelectUnits(Func<UnitBehaviourController, bool> predicate)

@@ -24,8 +24,8 @@ namespace AutoBattler
         [ListDrawerSettings(HideAddButton = true, AddCopiesLastElement = false)]
         public List<WaveFormation> WaveFormations = new();
 
-        [Button("Add Difficulty Level")]
-        private void AddDifficultyLevel()
+        [Button("Add Wave")]
+        private void AddWave()
         {
             var nextLevel = 0;
             if (WaveFormations.Count > 0)

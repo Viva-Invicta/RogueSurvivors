@@ -5,6 +5,7 @@
         Preview,
         Waiting,
         Fight,
-        Dead
+        Dead,
+        None
     }
 }

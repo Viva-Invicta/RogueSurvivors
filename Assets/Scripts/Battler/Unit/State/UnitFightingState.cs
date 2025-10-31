@@ -53,6 +53,39 @@ namespace AutoBattler
             UpdateTarget();
         }
 
+        private void ProcessCombat(float deltaTime)
+        {
+            timeSinceLastTargetUpdate += deltaTime;
+            if (timeSinceLastTargetUpdate > timeToUpdateTarget)
+            {
+                UpdateTarget();
+            }
+
+            ProcessTargetChase();
+        }
+
+        private void ProcessTargetChase()
+        {
+            if (!activeTarget)
+            {
+                return;
+            }
+
+            var targetPosition = activeTarget.transform.position;
+            var distanceToTarget = Vector3.Distance(ownerTransform.position, targetPosition);
+
+            var ownerStatus = StateData.OwnerStatus;
+
+            if (distanceToTarget <= distanceToAttack && !ownerStatus.IsAttackInCooldown && !ownerStatus.IsAttackLocked)
+            {
+                ExecuteAttack();
+            }
+            else
+            {
+                ChaseTarget(targetPosition);
+            }
+        }
+
         private bool ValidateStateData()
         {
             if (StateData == default)
@@ -76,7 +109,7 @@ namespace AutoBattler
             var componentsContainer = StateData.OwnerComponents;
 
             GetTargetSelector(stateOwner);
-            GetTransform(stateOwner);
+            ownerTransform = stateOwner.transform;
             GetCombatComponents(componentsContainer);
         }
 
@@ -88,11 +121,6 @@ namespace AutoBattler
             {
                 Debug.LogError($"{nameof(UnitFightingState)} : TargetSelector is null");
             }
-        }
-
-        private void GetTransform(UnitBehaviourController stateOwner)
-        {
-            ownerTransform = stateOwner.transform;
         }
 
         private void GetCombatComponents(UnitComponentsContainer componentsContainer)
@@ -147,37 +175,6 @@ namespace AutoBattler
             }
         }
 
-        private void ProcessCombat(float deltaTime)
-        {
-            timeSinceLastTargetUpdate += deltaTime;
-            if (timeSinceLastTargetUpdate > timeToUpdateTarget)
-            {
-                UpdateTarget();
-            }
-
-            ProcessTargetChase();
-        }
-
-        private void ProcessTargetChase()
-        {
-            if (activeTarget == null)
-            {
-                return;
-            }
-
-            var targetPosition = activeTarget.transform.position;
-            var distanceToTarget = Vector3.Distance(ownerTransform.position, targetPosition);
-
-            if (distanceToTarget <= distanceToAttack)
-            {
-                ExecuteAttack();
-            }
-            else
-            {
-                ChaseTarget(targetPosition);
-            }
-        }
-
         private void ExecuteAttack()
         {
             combatController.Attack(activeTarget);
@@ -197,7 +194,13 @@ namespace AutoBattler
                 animationController.SetWalking(false);
             }
 
+
             UnsubscribeFromEvents();
+
+            var ownerStatus = StateData.OwnerStatus;
+            ownerStatus.IsAttackInCooldown = false;
+            ownerStatus.IsMovementLocked = false;
+
             ClearReferences();
         }
 
@@ -270,7 +273,7 @@ namespace AutoBattler
             }
         }
 
-        private static void ValidateStateData(UnitStateData stateData)
+        private void ValidateStateData(UnitStateData stateData)
         {
             if (stateData == default)
             {

@@ -15,7 +15,8 @@ namespace AutoBattler
                 [UnitState.Preview] = () => new UnitPreviewState(stateData),
                 [UnitState.Waiting] = () => new UnitWaitingState(stateData),
                 [UnitState.Fight] = () => new UnitFightingState(stateData),
-                [UnitState.Dead] = () => new UnitDeadState(stateData)
+                [UnitState.Dead] = () => new UnitDeadState(stateData),
+                [UnitState.None] = () => default
             };
         }
 

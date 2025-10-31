@@ -22,12 +22,14 @@ MonoBehaviour:
     - unitType: 1
       gridX: 1
       gridY: 6
+  - WaveOrder: 1
+    Enemies:
     - unitType: 1
-      gridX: 2
+      gridX: 0
       gridY: 6
     - unitType: 1
       gridX: 3
-      gridY: 6
+      gridY: 9
     - unitType: 1
       gridX: 4
-      gridY: 6
+      gridY: 9

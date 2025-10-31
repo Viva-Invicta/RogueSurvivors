@@ -1,3 +1,4 @@
+using DunDungeons;
 using System.Linq;
 using UnityEngine;
 
@@ -7,6 +8,7 @@ namespace AutoBattler
     {
         private ServiceLocator serviceLocator;
         private TargetSelectorFactory targetSelectorFactory;
+        private int currentEnemyWave = 0;
 
         private void OnEnable()
         {
@@ -61,6 +63,7 @@ namespace AutoBattler
                 {
                     activePreview.SetState(UnitState.Waiting);
                     serviceLocator.EntitiesService.AddUnit(activePreview);
+                    activePreview.StateUpdated += HandleUnitStateChange;
                 }
                 else
                 {
@@ -80,16 +83,46 @@ namespace AutoBattler
 
             gridService.SetActiveRoomGrid(activeRoomGrid);
 
-            var enemyFormationConfiguration = serviceLocator.EnemyFormationConfigsService.GetFormationConfigForRoom(activeRoomGrid.SizeX, activeRoomGrid.SizeY);
+            serviceLocator.EnemyFormationConfigsService.SelectFormationConfigForRoom(activeRoomGrid.SizeX, activeRoomGrid.SizeY);
 
-            var enemyFormation = enemyFormationConfiguration.WaveFormations.First();
-            foreach (var enemy in enemyFormation.Enemies)
+            SpawnNextEnemiesWave();
+        }
+
+        private void SpawnNextEnemiesWave()
+        {
+            var enemiesFormation = serviceLocator.EnemyFormationConfigsService.CurrentEnemiesFormation;
+
+            var wavesInFormationCount = enemiesFormation.WaveFormations.Count();
+            var waveIndex = 0;
+
+            if (wavesInFormationCount > currentEnemyWave)
+            {
+                waveIndex = currentEnemyWave++;
+            }
+            else
+            {
+                waveIndex = wavesInFormationCount - 1;
+            }
+
+            var waveFormation = enemiesFormation.WaveFormations.ElementAt(waveIndex);
+            var prefabsService = serviceLocator.UnitsPrefabsService;
+            var gridService = serviceLocator.GridService;
+
+            foreach (var enemy in waveFormation.Enemies)
             {
                 var enemyInstance = Instantiate(prefabsService.GetUnitPrefabByType(enemy.UnitType));
                 enemyInstance.Initialize(UnitFaction.Enemy, targetSelectorFactory);
-                gridService.TryPlaceEntityAtGridPosition(enemyInstance.gameObject, enemy.GridX, enemy.GridY);
-                enemyInstance.transform.Rotate(0, 180, 0);
-                serviceLocator.EntitiesService.AddUnit(enemyInstance);
+
+                if (gridService.TryPlaceEntityAtGridPosition(enemyInstance.gameObject, enemy.GridX, enemy.GridY))
+                {
+                    enemyInstance.transform.Rotate(0, 180, 0);
+                    enemyInstance.StateUpdated += HandleUnitStateChange;
+                    serviceLocator.EntitiesService.AddUnit(enemyInstance);
+                }
+                else
+                {
+                    Destroy(enemyInstance);
+                }
             }
         }
 
@@ -97,13 +130,54 @@ namespace AutoBattler
         {
             foreach (var unit in serviceLocator.EntitiesService.Units)
             {
-                unit.SetState(UnitState.Fight);
+                unit.SetState(UnitState.Fight, notificate: false);
             }
 
             var uiService = serviceLocator.UIService;
 
             uiService.HideView(UIViewType.StartFightButton);
             uiService.HideView(UIViewType.UnitInventory);
+        }
+
+        private void HandleUnitStateChange()
+        {
+            var playerFightingUnitsCount = 0;
+            var enemyFightingUnitsCount = 0;
+
+            var entitiesService = serviceLocator.EntitiesService;
+            playerFightingUnitsCount = entitiesService.SelectFightingUnits(unit => unit.StatusProvider.Faction == UnitFaction.Player).Count();
+            enemyFightingUnitsCount = entitiesService.SelectFightingUnits(unit => unit.StatusProvider.Faction == UnitFaction.Enemy).Count();
+
+            if (playerFightingUnitsCount == 0 || enemyFightingUnitsCount == 0)
+            {
+                var uiService = serviceLocator.UIService;
+                var gridService = serviceLocator.GridService;
+
+                var enemies = entitiesService.SelectUnits(unit => unit.StatusProvider.Faction == UnitFaction.Enemy).ToList();
+
+                foreach (var enemy in enemies)
+                {
+                    var (x, y) = enemy.GridPosition;
+                    var enemyCell = gridService.GetCellByPosition(x, y);
+
+                    enemy.SetState(UnitState.None, notificate: false);
+
+                    entitiesService.RemoveUnit(enemy);
+                    enemyCell.RemoveEntity();
+                }
+
+                gridService.ResetActiveGridEntities();
+                var playerUnits = entitiesService.SelectFightingUnits(unit => unit.StatusProvider.Faction == UnitFaction.Player);
+                  
+                foreach (var unit in playerUnits)
+                {
+                    unit.SetState(UnitState.Waiting, notificate: false);
+                }
+
+                SpawnNextEnemiesWave();
+                uiService.CreateOrShowView<UnitInventoryView>(UIViewType.UnitInventory);
+                uiService.CreateOrShowView<SimpleButtonView>(UIViewType.StartFightButton);
+            }
         }
 
         private ServiceLocator CatchServiceLocator()

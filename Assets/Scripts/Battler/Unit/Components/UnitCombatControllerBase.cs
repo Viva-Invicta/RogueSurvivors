@@ -26,11 +26,6 @@ namespace AutoBattler
 
         public virtual void Attack(UnitBehaviourController target)
         {
-            if (unitStatus.IsAttackInCooldown || unitStatus.State != UnitState.Fight || unitStatus.IsAttackLocked)
-            {
-                return;
-            }
-
             cooldown = unitStatus.UnitValuesCalculator.CalculateAttackCooldown();
 
             OnAfterAttackStarted();

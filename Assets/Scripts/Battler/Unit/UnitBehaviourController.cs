@@ -1,10 +1,13 @@
+using System;
 using System.Linq;
 using UnityEngine;
 
 namespace AutoBattler
 {
-    public class UnitBehaviourController : MonoBehaviour
+    public class UnitBehaviourController : MonoBehaviour, IEntityWithGridPosition
     {
+        public event Action StateUpdated;
+
         private UnitStateBase state;
         private UnitStatus status;
         private IUnitStateFactory stateFactory;
@@ -17,6 +20,8 @@ namespace AutoBattler
 
         public IUnitStatusProvider StatusProvider => status;
         public TargetSelectorFactory TargetSelectorFactory => targetSelectorFactory;
+
+        public (int x, int y) GridPosition => status.GridPosition;
 
         private void Update()
         {
@@ -41,7 +46,7 @@ namespace AutoBattler
             stateFactory = new UnitStateFactory(stateData);
         }
 
-        public void SetState(UnitState state)
+        public void SetState(UnitState state, bool notificate = true)
         {
             this.state?.Exit();
 
@@ -49,6 +54,16 @@ namespace AutoBattler
             status.State = state;
 
             this.state?.Enter();
+
+            if (notificate)
+            {
+                StateUpdated?.Invoke();
+            }
+        }
+
+        public void SetGridPosition(int x, int y)
+        {
+            status.GridPosition = (x, y);
         }
     }
 }

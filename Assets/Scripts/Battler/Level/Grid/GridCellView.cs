@@ -35,6 +35,14 @@ namespace AutoBattler
             containedEntity = entity;
         }
 
+        public void ResetEntityPosition()
+        {
+            if (containedEntity)
+            {
+                containedEntity.transform.localPosition = Vector3.zero;
+            }
+        }
+
         public void RemoveEntity()
         {
             Destroy(containedEntity);
