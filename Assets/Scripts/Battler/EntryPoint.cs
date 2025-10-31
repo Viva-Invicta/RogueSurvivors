@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 namespace AutoBattler
@@ -5,6 +6,7 @@ namespace AutoBattler
     public class EntryPoint : MonoBehaviour
     {
         private ServiceLocator serviceLocator;
+        private TargetSelectorFactory targetSelectorFactory;
 
         private void OnEnable()
         {
@@ -14,23 +16,31 @@ namespace AutoBattler
 
         private void Start()
         {
-            var unitShopView = serviceLocator.UIService.CreateOrShowView<UnitShopView>(UIViewType.UnitShop);
-            unitShopView.Initialize(serviceLocator);
+            targetSelectorFactory = new TargetSelectorFactory(serviceLocator.EntitiesService);
 
-            var unitsShopService = serviceLocator.UnitShopService;
+            var uiService = serviceLocator.UIService;
+            var unitInventoryView = uiService.CreateOrShowView<UnitInventoryView>(UIViewType.UnitInventory);
+            unitInventoryView.Initialize(serviceLocator);
 
-            unitsShopService.SetView(unitShopView);
-            unitsShopService.AddAvailableUnit(UnitType.Knight0_0);
+            var unitInventoryService = serviceLocator.UnitInventoryService;
 
-            unitShopView.EntryDragged += HandleUnitShopEntryDragged;
+            unitInventoryService.SetView(unitInventoryView);
+            unitInventoryService.AddAvailableUnit(UnitType.Skeleton0_0);
+            unitInventoryService.AddAvailableUnit(UnitType.Knight0_0);
+
+            unitInventoryView.EntryDragged += HandleUnitInventoryEntryDragged;
             serviceLocator.UnitPreviewDragService.PreviewDragReleased += HandleUnitPreviewReleased;
 
             var roomsService = serviceLocator.RoomsService;
             roomsService.NextRoomSelected += HandleRoomSelected;
             roomsService.SelectNextRoom();
+
+            var startFightButtonView = uiService.CreateOrShowView<SimpleButtonView>(UIViewType.StartFightButton);
+            startFightButtonView.Pressed += HandleStartFightButtonPressed;
+            startFightButtonView.Initialize(serviceLocator);
         }
 
-        private void HandleUnitShopEntryDragged(UnitType unitType)
+        private void HandleUnitInventoryEntryDragged(UnitType unitType)
         {
             serviceLocator.UnitPreviewDragService.StartPreviewDrag(unitType);
             serviceLocator.GridService.HighlightCells();
@@ -49,7 +59,8 @@ namespace AutoBattler
             {
                 if (gridService.TryPlaceEntityAtPosition(activePreview.gameObject, hit.point))
                 {
-                    activePreview.IsPreview = false;
+                    activePreview.SetState(UnitState.Waiting);
+                    serviceLocator.EntitiesService.AddUnit(activePreview);
                 }
                 else
                 {
@@ -63,7 +74,36 @@ namespace AutoBattler
 
         private void HandleRoomSelected()
         {
-            serviceLocator.GridService.SetActiveRoomGrid(serviceLocator.RoomsService.ActiveRoomGrid);
+            var activeRoomGrid = serviceLocator.RoomsService.ActiveRoomGrid;
+            var gridService = serviceLocator.GridService;
+            var prefabsService = serviceLocator.UnitsPrefabsService;
+
+            gridService.SetActiveRoomGrid(activeRoomGrid);
+
+            var enemyFormationConfiguration = serviceLocator.EnemyFormationConfigsService.GetFormationConfigForRoom(activeRoomGrid.SizeX, activeRoomGrid.SizeY);
+
+            var enemyFormation = enemyFormationConfiguration.WaveFormations.First();
+            foreach (var enemy in enemyFormation.Enemies)
+            {
+                var enemyInstance = Instantiate(prefabsService.GetUnitPrefabByType(enemy.UnitType));
+                enemyInstance.Initialize(UnitFaction.Enemy, targetSelectorFactory);
+                gridService.TryPlaceEntityAtGridPosition(enemyInstance.gameObject, enemy.GridX, enemy.GridY);
+                enemyInstance.transform.Rotate(0, 180, 0);
+                serviceLocator.EntitiesService.AddUnit(enemyInstance);
+            }
+        }
+
+        private void HandleStartFightButtonPressed()
+        {
+            foreach (var unit in serviceLocator.EntitiesService.Units)
+            {
+                unit.SetState(UnitState.Fight);
+            }
+
+            var uiService = serviceLocator.UIService;
+
+            uiService.HideView(UIViewType.StartFightButton);
+            uiService.HideView(UIViewType.UnitInventory);
         }
 
         private ServiceLocator CatchServiceLocator()

@@ -3,10 +3,10 @@ using UnityEngine;
 
 namespace AutoBattler
 {
-    public class UnitShopService : MonoBehaviour
+    public class UnitInventoryService : MonoBehaviour
     {
         private ServiceLocator serviceLocator;
-        private UnitShopView unitShopView;
+        private UnitInventoryView inventoryView;
 
         private Dictionary<UnitType, int> availableUnits = new Dictionary<UnitType, int>();
 
@@ -15,9 +15,9 @@ namespace AutoBattler
             this.serviceLocator = serviceLocator;
         }
 
-        public void SetView(UnitShopView unitShopView)
+        public void SetView(UnitInventoryView unitInventoryView)
         {
-            this.unitShopView = unitShopView;
+            this.inventoryView = unitInventoryView;
             UpdateView();
         }
 
@@ -47,11 +47,19 @@ namespace AutoBattler
                     availableUnits.Remove(unitType);
                 }
             }
+            UpdateView();
         }
 
         public void UpdateView()
         {
-            unitShopView.UpdateUnits(availableUnits);
+            if (inventoryView)
+            {
+                inventoryView.UpdateUnits(availableUnits);
+            }
+            else
+            {
+                Debug.LogError($"{nameof(UnitInventoryService)} : Units in inventory was updated, but no view set, nothing to refresh.");
+            }
         }
     }
 }

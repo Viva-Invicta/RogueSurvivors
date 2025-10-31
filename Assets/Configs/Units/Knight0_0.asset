@@ -12,5 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7310ddff2dff3f54f9bc25bdd82e3734, type: 3}
   m_Name: Knight0_0
   m_EditorClassIdentifier: 
-  <UnitType>k__BackingField: 0
-  <ShopIcon>k__BackingField: {fileID: 21300000, guid: 2f81f9e901b84cf4f9e4cc3cdd41cfff, type: 3}
+  unitType: 0
+  interfaceIcon: {fileID: 21300000, guid: 2f81f9e901b84cf4f9e4cc3cdd41cfff, type: 3}
+  interfaceDescriptionKey: 
+  baseDamage:
+  - <DamageType>k__BackingField: 1
+    <Value>k__BackingField: 10
+  baseAttackCooldown: 1.5
+  baseMovementSpeed: 1.4
+  baseAttackDistance: 2
+  baseMaxHealth: 50
+  timeToUpdateTarget: 0.3
+  targetSelector: 0

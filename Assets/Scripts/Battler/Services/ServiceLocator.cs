@@ -10,12 +10,14 @@ namespace AutoBattler
         [field: SerializeField] public UIService UIService { get; private set; }
         [field: SerializeField] public UnitPreviewDragService UnitPreviewDragService { get; private set;}
         [field: SerializeField] public RoomsService RoomsService { get; private set; }
-        [field: SerializeField] public UnitShopService UnitShopService { get; private set; }
+        [field: SerializeField] public UnitInventoryService UnitInventoryService { get; private set; }
+        [field: SerializeField] public EnemyFormationConfigsService EnemyFormationConfigsService { get; private set; }
+        [field: SerializeField] public EntitiesService EntitiesService { get; private set; }
 
         public void InitializeServices()
         {
             UIService.Initialize(this);
-            UnitShopService.Initialize(this);
+            UnitInventoryService.Initialize(this);
             UnitPreviewDragService.Initialize(this);
         }
     }

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5608035092904347416}
   - component: {fileID: 6129885653521904305}
   m_Layer: 5
-  m_Name: UnitShopView
+  m_Name: UnitInventoryView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -67,8 +67,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Sprite: {fileID: 21300000, guid: fec94795c621a574a99603ab72d85e3f, type: 3}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -113,4 +113,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 142255569d9f6c14d97ba70d75190c56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewType: 0
+  viewType: 1

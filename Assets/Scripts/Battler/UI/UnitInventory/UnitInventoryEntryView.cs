@@ -5,12 +5,12 @@ using UnityEngine.UI;
 
 namespace AutoBattler
 {
-    public class UnitShopEntryView : UIView, IBeginDragHandler, IDragHandler
+    public class UnitInventoryEntryView : UIView, IBeginDragHandler, IDragHandler
     {
         public event Action DragStarted;
 
         [SerializeField]
-        private UIViewType viewType = UIViewType.UnitShopEntry;
+        private UIViewType viewType = UIViewType.UnitInventoryEntry;
 
         [SerializeField]
         private Image icon;
