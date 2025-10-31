@@ -2,7 +2,7 @@
 {
     public class UnitWaitingState : UnitStateBase
     {
-        public UnitWaitingState(UnitBehaviourController stateOwner) : base(stateOwner)
+        public UnitWaitingState(UnitStateData stateData) : base(stateData)
         {
         }
 

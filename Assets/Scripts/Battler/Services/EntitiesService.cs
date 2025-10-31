@@ -27,6 +27,13 @@ namespace AutoBattler
             }
         }
 
+        public IEnumerable<UnitBehaviourController> SelectFightingUnits(Func<UnitBehaviourController, bool> predicate)
+        {
+            return units
+                .Where(predicate)
+                .Where(unit => unit.StatusProvider.State == UnitState.Fight);
+        }
+
         public IEnumerable<UnitBehaviourController> SelectUnits(Func<UnitBehaviourController, bool> predicate)
         {
             return units.Where(predicate);

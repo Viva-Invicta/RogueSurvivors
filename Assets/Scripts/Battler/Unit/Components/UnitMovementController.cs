@@ -23,7 +23,7 @@ namespace AutoBattler
 
         protected ServiceLocator ServiceLocator { get; private set; }
 
-        public virtual void Initialize(IUnitStatusProvider unitStatus)
+        public void Initialize(IUnitStatusProvider unitStatus)
         {
             this.unitStatus = unitStatus;
             characterTransform = characterController.transform;
@@ -46,7 +46,7 @@ namespace AutoBattler
                 return;
             }
 
-            characterController.Move(direction * unitStatus.BaseMovementSpeed * Time.fixedDeltaTime);
+            characterController.Move(direction * unitStatus.UnitValuesCalculator.CalculateMovementSpeed() * Time.fixedDeltaTime);
 
             var rotation = Quaternion.LookRotation(direction);
             rotationTween?.Kill();

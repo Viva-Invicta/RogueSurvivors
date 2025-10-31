@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using System;
+using UnityEngine;
 
 namespace AutoBattler
 {
@@ -23,7 +23,8 @@ namespace AutoBattler
                 return selector;
             }
 
-            throw new InvalidOperationException($"{nameof(TargetSelectorFactory)} : Target selector for type {type} not registered.");
+            Debug.LogError($"{nameof(TargetSelectorFactory)} : Target selector for type {type} not registered.");
+            return default;
         }
     }
 }

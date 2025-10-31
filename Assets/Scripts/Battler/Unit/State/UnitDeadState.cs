@@ -2,12 +2,16 @@ namespace AutoBattler
 {
     public class UnitDeadState : UnitStateBase
     {
-        public UnitDeadState(UnitBehaviourController stateOwner) : base(stateOwner)
+        private UnitAnimationController animationController;
+
+        public UnitDeadState(UnitStateData stateData) : base(stateData)
         {
+            animationController = stateData.OwnerComponents.AnimationController;
         }
 
         public override void Enter()
         {
+            animationController.PlayDeath();
             base.Enter();
         }
 

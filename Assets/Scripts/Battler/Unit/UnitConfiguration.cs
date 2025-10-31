@@ -44,6 +44,14 @@ namespace AutoBattler
         [SerializeField]
         private float baseMaxHealth = 100f;
 
+        [BoxGroup("In-game settings")]
+        [SerializeField]
+        private float timeToUpdateTarget = 1f;
+
+        [BoxGroup("In-game settings")]
+        [SerializeField]
+        private TargetSelectorType targetSelector = TargetSelectorType.NearestEnemy;
+
         public UnitType UnitType => unitType;
         public string InterfaceDescriptionKey => interfaceDescriptionKey;
         public Sprite InterfaceIcon => interfaceIcon;
@@ -52,6 +60,8 @@ namespace AutoBattler
         public float BaseMovementSpeed => baseMovementSpeed;
         public float BaseAttackDistance => baseAttackDistance;
         public float BaseMaxHealth => baseMaxHealth;
+        public float TimeToUpdateTarget => timeToUpdateTarget;
+        public TargetSelectorType TargetSelector => targetSelector;
     }
 
     [Serializable]

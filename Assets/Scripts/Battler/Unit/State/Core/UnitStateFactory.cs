@@ -6,24 +6,24 @@ namespace AutoBattler
 {
     public class UnitStateFactory : IUnitStateFactory
     {
-        private readonly Dictionary<UnitState, Func<UnitBehaviourController, UnitStateBase>> factories;
+        private readonly Dictionary<UnitState, Func<UnitStateBase>> factories;
 
-        public UnitStateFactory()
+        public UnitStateFactory(UnitStateData stateData)
         {
-            factories = new Dictionary<UnitState, Func<UnitBehaviourController, UnitStateBase>>
+            factories = new Dictionary<UnitState, Func<UnitStateBase>>
             {
-                [UnitState.Preview] = controller => new UnitPreviewState(controller),
-                [UnitState.Waiting] = controller => new UnitWaitingState(controller),
-                [UnitState.Fight] = controller => new UnitFightingState(controller),
-                [UnitState.Dead] = controller => new UnitDeadState(controller)
+                [UnitState.Preview] = () => new UnitPreviewState(stateData),
+                [UnitState.Waiting] = () => new UnitWaitingState(stateData),
+                [UnitState.Fight] = () => new UnitFightingState(stateData),
+                [UnitState.Dead] = () => new UnitDeadState(stateData)
             };
         }
 
-        public UnitStateBase CreateState(UnitState state, UnitBehaviourController controller)
+        public UnitStateBase CreateState(UnitState state)
         {
             if (factories.TryGetValue(state, out var factory))
             {
-                return factory(controller);
+                return factory();
             }
 
             Debug.LogError($"{nameof(UnitStateFactory)} : Could not create state {state} because there's no factory for it");

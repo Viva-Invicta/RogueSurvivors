@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5274005542142260335}
   - component: {fileID: 3630747325046487959}
   m_Layer: 5
-  m_Name: UnitShopEntryView
+  m_Name: UnitInventoryEntryView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -89,7 +89,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a09e57f993c0f93478832dcdc25b6ca6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewType: 1
+  viewType: 2
   icon: {fileID: 5274005542142260335}
 --- !u!1 &8176122282902276081
 GameObject:

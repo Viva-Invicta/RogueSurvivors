@@ -3,18 +3,18 @@ using UnityEngine;
 
 namespace AutoBattler
 {
-    public class UnitMeleeWeapon : MonoBehaviour
+    public class UnitMeleeWeapon : UnitWeapon
     {
         [SerializeField] private HashSet<UnitBehaviourController> hitTargets = new HashSet<UnitBehaviourController>();
 
         private bool isActive;
         private UnitBehaviourController owner;
-        private DamageType damageType;
+        private IEnumerable<DamageType> damageTypes;
 
-        public void Initialize(UnitBehaviourController owner, DamageType damageType)
+        public override void Initialize(UnitBehaviourController owner, IEnumerable<DamageType> damageType)
         {
             this.owner = owner;
-            this.damageType = damageType;
+            this.damageTypes = damageType;
         }
 
         private void OnTriggerEnter(Collider other)
@@ -35,6 +35,7 @@ namespace AutoBattler
             }
 
             var otherUnitStatusProvider = unit.StatusProvider;
+            var ownerStatusProvider = owner.StatusProvider;
 
             var isValidTarget =
                otherUnitStatusProvider.State == UnitState.Fight &&
@@ -45,21 +46,25 @@ namespace AutoBattler
                 return;
             }
 
-            var ownerStatusProvider = owner.StatusProvider;
+            var damageReciever = unit.ComponentsContainer.DamageReceiver;
+            var ownerValuesCalculator = ownerStatusProvider.UnitValuesCalculator;
 
-            var damage = ownerStatusProvider.UnitValuesCalculator.CalculateOutcomingDamage(damageType);
-            unit.RecieveDamage(damageType, damage);
-            
+            foreach (var damageType in damageTypes)
+            {
+                var damage = ownerValuesCalculator.CalculateOutcomingDamage(damageType);
+                damageReciever.ReceiveDamage(damageType, damage);
+            }
+
             hitTargets.Add(unit);
         }
 
-        public void Activate()
+        public override void Activate()
         {
             isActive = true;
             hitTargets.Clear();
         }
 
-        public void Deactivate()
+        public override void Deactivate()
         {
             isActive = false;
         }

@@ -15,7 +15,7 @@ namespace AutoBattler
         public UnitBehaviourController SelectTarget(UnitBehaviourController requester)
         {
             var enemies = entitiesService
-                .SelectUnits(unit => unit.StatusProvider.Faction != requester.StatusProvider.Faction)
+                .SelectFightingUnits(unit => unit.StatusProvider.Faction != requester.StatusProvider.Faction)
                 .ToList();
 
             if (!enemies.Any())

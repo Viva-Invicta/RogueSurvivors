@@ -2,6 +2,6 @@
 {
     public interface IUnitStateFactory
     {
-        UnitStateBase CreateState(UnitState state, UnitBehaviourController controller);
+        UnitStateBase CreateState(UnitState state);
     }
 }

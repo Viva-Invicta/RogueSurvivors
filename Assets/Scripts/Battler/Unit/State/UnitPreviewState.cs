@@ -4,7 +4,7 @@ namespace AutoBattler
 {
     public class UnitPreviewState : UnitStateBase
     {
-        public UnitPreviewState(UnitBehaviourController stateOwner) : base(stateOwner)
+        public UnitPreviewState(UnitStateData stateData) : base(stateData)
         {
         }
 
@@ -26,17 +26,14 @@ namespace AutoBattler
 
         private void SetPreviewAnimation(bool isPreview)
         {
-            if (StateOwner)
-            {
-                var animationController = StateOwner.ComponentsContainer.AnimationController;
-                animationController.SetPreview(isPreview);
-            }
+            var animationController = StateData.OwnerComponents.AnimationController;
+            animationController.SetPreview(isPreview);
         }
 
         private void SetPhysicsLayer(bool isPreviewLayer)
         {
             var layer = isPreviewLayer ? PhysicsLayersUtility.UnitPreviewLayer : PhysicsLayersUtility.UnitLayer;
-            var gameObject = StateOwner.gameObject;
+            var gameObject = StateData.OwnerController.gameObject;
 
             foreach (var children in gameObject.GetComponentsInChildren<Collider>())
             {

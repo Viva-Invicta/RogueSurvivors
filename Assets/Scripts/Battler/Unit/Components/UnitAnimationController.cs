@@ -22,7 +22,8 @@ namespace AutoBattler
 
         public void Initialize(IUnitStatusProvider unitStatus)
         {
-            SetMovementSpeed(unitStatus.BaseMovementSpeed);
+            SetMovementSpeed(unitStatus.UnitValuesCalculator.CalculateMovementSpeed());
+            SetAttackSpeed(unitStatus.UnitValuesCalculator.CalculateAttackCooldown());
         }
 
         public void SetAnimationByKey(AnimatorKeyIdentifier key, bool isActive)
@@ -70,7 +71,7 @@ namespace AutoBattler
 
         public void SetAttackSpeed(float attackSpeed)
         {
-            if (AnimatorKeysUtility.TryGetAnimatorHash(AnimatorKeyIdentifier.MoveSpeed, out var hash))
+            if (AnimatorKeysUtility.TryGetAnimatorHash(AnimatorKeyIdentifier.AttackSpeed, out var hash))
             {
                 animator.SetFloat(hash, attackSpeed);
             }

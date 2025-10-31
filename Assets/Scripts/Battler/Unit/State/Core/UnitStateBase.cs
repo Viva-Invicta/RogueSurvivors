@@ -2,16 +2,30 @@
 {
     public abstract class UnitStateBase
     {
-        protected UnitBehaviourController StateOwner;
+        protected UnitStateData StateData;
 
-        public UnitStateBase(UnitBehaviourController stateOwner)
+        public UnitStateBase(UnitStateData stateData)
         {
-            StateOwner = stateOwner;
+            StateData = stateData;
         }
 
         public virtual void Enter() { }
-        public virtual void Exit() { }
-
         public virtual void Process(float deltaTime) { }
+        public virtual void Exit() { }
+    }
+
+    public class UnitStateData
+    {
+        public UnitComponentsContainer OwnerComponents { get; private set; }
+        public UnitBehaviourController OwnerController { get; private set; }
+        public UnitStatus OwnerStatus { get; private set; }
+
+        public UnitStateData(UnitComponentsContainer ownerComponents, UnitBehaviourController ownerController, UnitStatus ownerStatus)
+        {
+            OwnerComponents = ownerComponents;
+            OwnerController = ownerController;
+            OwnerStatus = ownerStatus;
+        }
+
     }
 }

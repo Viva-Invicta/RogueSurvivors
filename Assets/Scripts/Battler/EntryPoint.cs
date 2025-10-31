@@ -37,6 +37,7 @@ namespace AutoBattler
 
             var startFightButtonView = uiService.CreateOrShowView<SimpleButtonView>(UIViewType.StartFightButton);
             startFightButtonView.Pressed += HandleStartFightButtonPressed;
+            startFightButtonView.Initialize(serviceLocator);
         }
 
         private void HandleUnitInventoryEntryDragged(UnitType unitType)
@@ -98,6 +99,11 @@ namespace AutoBattler
             {
                 unit.SetState(UnitState.Fight);
             }
+
+            var uiService = serviceLocator.UIService;
+
+            uiService.HideView(UIViewType.StartFightButton);
+            uiService.HideView(UIViewType.UnitInventory);
         }
 
         private ServiceLocator CatchServiceLocator()

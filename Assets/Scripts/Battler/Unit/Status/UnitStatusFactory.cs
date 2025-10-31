@@ -1,14 +1,17 @@
 using System.Collections.Generic;
+using System.Linq;
 
 namespace AutoBattler
 {
     public class UnitStatusFactory
     {
-        public UnitStatus Create(UnitFaction faction, UnitConfiguration config)
+        public UnitStatus Create(UnitFaction faction, UnitConfiguration config, UnitWeapon weapon)
         {
-            var unitStatus = new UnitStatus(faction);
+            var unitStatus = new UnitStatus(faction, config);
 
-            var unitValuesCalculator = new UnitValuesCalculator(unitStatus);
+            unitStatus.Configuration = config;
+
+            var unitValuesCalculator = new UnitValuesCalculator(unitStatus, config);
             unitStatus.UnitValuesCalculator = unitValuesCalculator;
 
             var unitHealth = new Resource(config.BaseMaxHealth);
@@ -20,9 +23,7 @@ namespace AutoBattler
                 baseDamageDictionary.Add(baseDamageEntry.DamageType, baseDamageEntry.Value);
             }
 
-            unitStatus.BaseDamage = baseDamageDictionary;
-            unitStatus.BaseMovementSpeed = config.BaseMovementSpeed;
-            unitStatus.BaseAttackCooldown = config.BaseAttackCooldown;
+            unitStatus.Weapon = weapon;
 
             return unitStatus;
         }

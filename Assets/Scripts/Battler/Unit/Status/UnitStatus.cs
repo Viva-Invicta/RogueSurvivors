@@ -4,11 +4,12 @@ namespace AutoBattler
 {
     public class UnitStatus : IUnitStatusProvider, IUnitStatusSetter
     {
-        public UnitStatus(UnitFaction faction)
+        public UnitStatus(UnitFaction faction, UnitConfiguration configuration)
         {
             Faction = faction;
         }
 
+        public UnitConfiguration Configuration { get; set; }
         public UnitFaction Faction { get; set; }
 
         public UnitState State { get; set; }
@@ -19,15 +20,14 @@ namespace AutoBattler
 
         public bool IsAttackInCooldown { get; set; }
 
-        public float BaseMovementSpeed { get; set; }
-        public float BaseAttackCooldown { get; set; }
-
         public UnitValuesCalculator UnitValuesCalculator { get; set; }
-        public Dictionary<DamageType, float> BaseDamage  { get; set; }
+
+        public UnitWeapon Weapon { get; set; }
     }
 
     public interface IUnitStatusProvider
     {
+        public UnitConfiguration Configuration { get; set; }
         public UnitFaction Faction { get; }
 
         public UnitState State { get; }
@@ -39,15 +39,13 @@ namespace AutoBattler
 
         public bool IsAttackInCooldown { get; }
 
-        public float BaseMovementSpeed { get; }
-        public float BaseAttackCooldown { get; }
-
         public UnitValuesCalculator UnitValuesCalculator { get; }
-        public Dictionary<DamageType, float> BaseDamage { get; }
+        public UnitWeapon Weapon { get; }
     }
 
     public interface IUnitStatusSetter
     {
+        public UnitConfiguration Configuration { get; set; }
         public UnitFaction Faction { set; }
 
         public UnitState State { set; }
@@ -59,11 +57,9 @@ namespace AutoBattler
 
         public bool IsAttackInCooldown { set; }
 
-        public float BaseAttackCooldown { set; }
-        public float BaseMovementSpeed { set; }
-
         public UnitValuesCalculator UnitValuesCalculator { set; }
-        public Dictionary<DamageType, float> BaseDamage { set; }
+
+        public UnitWeapon Weapon { set; }
 
     }
 }
