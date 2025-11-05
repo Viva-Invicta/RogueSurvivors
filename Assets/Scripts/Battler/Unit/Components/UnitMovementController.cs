@@ -36,7 +36,7 @@ namespace AutoBattler
 
         public void Move(Vector3 direction)
         {
-            if (unitStatus.State != UnitState.Fight || unitStatus.IsMovementLocked)
+            if (unitStatus.StateID != UnitStateID.Fight || unitStatus.IsMovementLocked)
             {
                 return;
             }

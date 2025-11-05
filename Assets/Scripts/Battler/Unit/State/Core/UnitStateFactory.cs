@@ -4,23 +4,23 @@ using UnityEngine;
 
 namespace AutoBattler
 {
-    public class UnitStateFactory : IUnitStateFactory
+    public class UnitStateFactory : IStateFactory<UnitStateBase, UnitStateID>
     {
-        private readonly Dictionary<UnitState, Func<UnitStateBase>> factories;
+        private readonly Dictionary<UnitStateID, Func<UnitStateBase>> factories;
 
         public UnitStateFactory(UnitStateData stateData)
         {
-            factories = new Dictionary<UnitState, Func<UnitStateBase>>
+            factories = new Dictionary<UnitStateID, Func<UnitStateBase>>
             {
-                [UnitState.Preview] = () => new UnitPreviewState(stateData),
-                [UnitState.Waiting] = () => new UnitWaitingState(stateData),
-                [UnitState.Fight] = () => new UnitFightingState(stateData),
-                [UnitState.Dead] = () => new UnitDeadState(stateData),
-                [UnitState.None] = () => default
+                [UnitStateID.Preview] = () => new UnitPreviewState(stateData),
+                [UnitStateID.Waiting] = () => new UnitWaitingState(stateData),
+                [UnitStateID.Fight] = () => new UnitFightingState(stateData),
+                [UnitStateID.Dead] = () => new UnitDeadState(stateData),
+                [UnitStateID.None] = () => default
             };
         }
 
-        public UnitStateBase CreateState(UnitState state)
+        public UnitStateBase CreateState(UnitStateID state)
         {
             if (factories.TryGetValue(state, out var factory))
             {

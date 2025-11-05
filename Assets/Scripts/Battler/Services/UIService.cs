@@ -16,6 +16,27 @@ namespace AutoBattler
             this.serviceLocator = serviceLocator;
         }
 
+        public bool TryGetView<T>(UIViewType viewType, out T view)
+            where T: UIView
+        {
+            if (activeViews.TryGetValue(viewType, out var value))
+            {
+                view = value.GetComponent<T>();
+
+                if (view)
+                {
+                    return true;
+                }
+                else
+                {
+                    Debug.LogError($"{nameof(UIService)} : could not get component of view with type {viewType}");
+                }
+            }
+
+            view = default;
+            return false;
+        }
+
         public T CreateOrShowView<T>(UIViewType viewType, Transform parent = default)
             where T: UIView
         {

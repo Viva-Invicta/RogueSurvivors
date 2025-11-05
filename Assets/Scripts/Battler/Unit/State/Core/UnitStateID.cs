@@ -1,6 +1,6 @@
 ﻿namespace AutoBattler
 {
-    public enum UnitState
+    public enum UnitStateID
     {
         Preview,
         Waiting,

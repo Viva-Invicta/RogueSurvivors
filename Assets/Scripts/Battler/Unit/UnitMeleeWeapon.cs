@@ -38,7 +38,7 @@ namespace AutoBattler
             var ownerStatusProvider = owner.StatusProvider;
 
             var isValidTarget =
-               otherUnitStatusProvider.State == UnitState.Fight &&
+               otherUnitStatusProvider.StateID == UnitStateID.Fight &&
                otherUnitStatusProvider.Faction != owner.StatusProvider.Faction;
 
             if (!isValidTarget)

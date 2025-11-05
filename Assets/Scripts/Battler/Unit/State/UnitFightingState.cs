@@ -244,7 +244,7 @@ namespace AutoBattler
         {
             if (health.CurrentValue <= 0)
             {
-                StateData.OwnerController.SetState(UnitState.Dead);
+                StateData.OwnerController.StateMachine.SetState(UnitStateID.Dead);
             }
         }
 

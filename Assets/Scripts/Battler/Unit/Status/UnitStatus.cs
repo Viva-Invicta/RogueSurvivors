@@ -12,7 +12,7 @@ namespace AutoBattler
         public UnitConfiguration Configuration { get; set; }
         public UnitFaction Faction { get; set; }
 
-        public UnitState State { get; set; }
+        public UnitStateID StateID { get; set; }
         public Resource Health { get; set; }
 
         public bool IsMovementLocked { get; set; }
@@ -32,7 +32,7 @@ namespace AutoBattler
         public UnitConfiguration Configuration { get; }
         public UnitFaction Faction { get; }
 
-        public UnitState State { get; }
+        public UnitStateID StateID { get; }
 
         public Resource Health { get; }
 
@@ -52,7 +52,7 @@ namespace AutoBattler
         public UnitConfiguration Configuration { set; }
         public UnitFaction Faction { set; }
 
-        public UnitState State { set; }
+        public UnitStateID StateID { set; }
 
         public Resource Health { set; }
 

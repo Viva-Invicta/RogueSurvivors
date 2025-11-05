@@ -52,7 +52,7 @@ namespace AutoBattler
             var previewInstance = SpawnPreview(unitType);
             ActivePreview = previewInstance;
 
-            previewInstance.SetState(UnitState.Preview);
+            previewInstance.StateMachine.SetState(UnitStateID.Preview);
         }
 
         private UnitBehaviourController SpawnPreview(UnitType unitType)

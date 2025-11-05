@@ -17,7 +17,7 @@ namespace AutoBattler
 
         public void SetView(UnitInventoryView unitInventoryView)
         {
-            this.inventoryView = unitInventoryView;
+            inventoryView = unitInventoryView;
             UpdateView();
         }
 

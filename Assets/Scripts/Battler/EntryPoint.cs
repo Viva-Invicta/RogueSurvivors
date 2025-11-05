@@ -1,4 +1,3 @@
-using DunDungeons;
 using System.Linq;
 using UnityEngine;
 
@@ -61,7 +60,7 @@ namespace AutoBattler
             {
                 if (gridService.TryPlaceEntityAtPosition(activePreview.gameObject, hit.point))
                 {
-                    activePreview.SetState(UnitState.Waiting);
+                    activePreview.StateMachine.SetState(UnitStateID.Waiting);
                     serviceLocator.EntitiesService.AddUnit(activePreview);
                     activePreview.StateUpdated += HandleUnitStateChange;
                 }
@@ -83,7 +82,7 @@ namespace AutoBattler
 
             gridService.SetActiveRoomGrid(activeRoomGrid);
 
-            serviceLocator.EnemyFormationConfigsService.SelectFormationConfigForRoom(activeRoomGrid.SizeX, activeRoomGrid.SizeY);
+            serviceLocator.EnemyFormationConfigsService.GetFormationConfigForRoom(activeRoomGrid.SizeX, activeRoomGrid.SizeY);
 
             SpawnNextEnemiesWave();
         }
@@ -130,7 +129,7 @@ namespace AutoBattler
         {
             foreach (var unit in serviceLocator.EntitiesService.Units)
             {
-                unit.SetState(UnitState.Fight, notificate: false);
+                unit.StateMachine.SetState(UnitStateID.Fight, notify: false);
             }
 
             var uiService = serviceLocator.UIService;
@@ -160,7 +159,7 @@ namespace AutoBattler
                     var (x, y) = enemy.GridPosition;
                     var enemyCell = gridService.GetCellByPosition(x, y);
 
-                    enemy.SetState(UnitState.None, notificate: false);
+                    enemy.StateMachine.SetState(UnitStateID.None, notify: false);
 
                     entitiesService.RemoveUnit(enemy);
                     enemyCell.RemoveEntity();
@@ -171,7 +170,7 @@ namespace AutoBattler
                   
                 foreach (var unit in playerUnits)
                 {
-                    unit.SetState(UnitState.Waiting, notificate: false);
+                    unit.StateMachine.SetState(UnitStateID.Waiting, notify: false);
                 }
 
                 SpawnNextEnemiesWave();

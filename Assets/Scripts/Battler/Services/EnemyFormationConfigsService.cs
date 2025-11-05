@@ -11,7 +11,7 @@ namespace AutoBattler
 
         public EnemyFormationConfig CurrentEnemiesFormation { get; private set; }
 
-        public void SelectFormationConfigForRoom(int roomWidth, int roomHeight)
+        public void GetFormationConfigForRoom(int roomWidth, int roomHeight)
         {
             CurrentEnemiesFormation = formationConfigurations.FirstOrDefault(configuration =>
                configuration.RoomSize.x == roomWidth && configuration.RoomSize.y == roomHeight

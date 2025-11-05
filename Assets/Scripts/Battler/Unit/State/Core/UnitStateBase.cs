@@ -1,6 +1,6 @@
 ﻿namespace AutoBattler
 {
-    public abstract class UnitStateBase
+    public abstract class UnitStateBase : IState
     {
         protected UnitStateData StateData;
 

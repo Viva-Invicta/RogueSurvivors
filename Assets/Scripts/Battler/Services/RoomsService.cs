@@ -13,7 +13,7 @@ namespace AutoBattler
 
         public RoomGrid ActiveRoomGrid { get; private set; }
 
-        public int CurrentRoomDifficulty => 0;
+        public int CurrentWave = 0;
 
         public void SelectNextRoom()
         {
@@ -21,5 +21,7 @@ namespace AutoBattler
             ActiveRoomGrid = levelRooms.First();
             NextRoomSelected?.Invoke();
         }
+
+        public void IncreaseWave() => CurrentWave++;
     }
 }
