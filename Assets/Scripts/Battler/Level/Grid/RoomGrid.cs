@@ -9,8 +9,8 @@ namespace AutoBattler
         [SerializeField] private GridCellView cellPrefab;
         [SerializeField] private GridConfiguration gridData;
 
-        public int SizeX => cells.GetLength(0);
-        public int SizeY => cells.GetLength(1);
+        public int SizeX => Cells.GetLength(0);
+        public int SizeY => Cells.GetLength(1);
 
         private GridCellView[,] cells;
 

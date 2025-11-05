@@ -13,7 +13,13 @@ namespace AutoBattler
 
         public RoomGrid ActiveRoomGrid { get; private set; }
 
-        public int CurrentWave = 0;
+        public int CurrentWave
+        { 
+            get => currentWave; 
+            set => currentWave = value; 
+        }
+
+        private int currentWave = 0;
 
         public void SelectNextRoom()
         {
@@ -23,5 +29,10 @@ namespace AutoBattler
         }
 
         public void IncreaseWave() => CurrentWave++;
+
+        public void ResetWave()
+        {
+            
+        }
     }
 }

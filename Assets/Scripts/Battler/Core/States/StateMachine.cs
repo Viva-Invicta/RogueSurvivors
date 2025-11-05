@@ -4,23 +4,23 @@ using UnityEngine;
 namespace AutoBattler
 {
     public class StateMachine<TState, TStateID>
-        where TState : IState
+        where TState : IState<TStateID>
         where TStateID : Enum
     {
         public event Action<TStateID> StateChanged;
 
-        private readonly IStateFactory<TState, TStateID> stateFactory;
+        private readonly IStateFactory<IState<TStateID>, TStateID> stateFactory;
 
-        private TState currentState;
+        private IState<TStateID> currentState;
         private TStateID currentStateID;
 
         public TStateID CurrentStateID => currentStateID;
 
-        public StateMachine(IStateFactory<TState, TStateID> factory)
+        public StateMachine(IStateFactory<IState<TStateID>, TStateID> factory)
         {
-            if (factory != default)
+            if (factory == default)
             {
-                Debug.LogError($"{nameof(StateMachine<TState, TStateID>)}: Trying to create state machine without state factory is definetily a error.");
+                Debug.LogError($"{nameof(StateMachine<TState, TStateID>)}: Trying to create state machine without state factory is definetily an error.");
                 return;
             }
 
@@ -39,16 +39,30 @@ namespace AutoBattler
                 return;
             }
 
-            currentState?.Exit();
+            if (currentState != default)
+            {
+                currentState.Exit();
+                currentState.StateChangeRequest -= HandleStateChangeRequest;
+            }
+
             currentState = stateFactory.CreateState(newStateID);
             currentStateID = newStateID;
 
-            currentState?.Enter();
+            if (currentState != default)
+            {
+                currentState.StateChangeRequest += HandleStateChangeRequest;
+                currentState.Enter();
+            }
 
             if (notify)
             {
                 StateChanged?.Invoke(newStateID);
             }
+        }
+
+        private void HandleStateChangeRequest(TStateID newState)
+        {
+            SetState(newState);
         }
     }
 }

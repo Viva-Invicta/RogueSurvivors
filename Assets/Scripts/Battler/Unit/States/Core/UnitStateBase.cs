@@ -1,8 +1,12 @@
-﻿namespace AutoBattler
+﻿using System;
+
+namespace AutoBattler
 {
-    public abstract class UnitStateBase : IState
+    public abstract class UnitStateBase : IState<UnitStateID>
     {
         protected UnitStateData StateData;
+
+        public virtual event Action<UnitStateID> StateChangeRequest;
 
         public UnitStateBase(UnitStateData stateData)
         {

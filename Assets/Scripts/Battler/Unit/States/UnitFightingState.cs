@@ -5,6 +5,8 @@ namespace AutoBattler
 {
     public class UnitFightingState : UnitStateBase
     {
+        public override event Action<UnitStateID> StateChangeRequest;
+
         private UnitBehaviourController activeTarget;
         private ITargetSelector targetSelector;
         private Transform ownerTransform;
@@ -244,7 +246,7 @@ namespace AutoBattler
         {
             if (health.CurrentValue <= 0)
             {
-                StateData.OwnerController.StateMachine.SetState(UnitStateID.Dead);
+                StateChangeRequest?.Invoke(UnitStateID.Dead);
             }
         }
 

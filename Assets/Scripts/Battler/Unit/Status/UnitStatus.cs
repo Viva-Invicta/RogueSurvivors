@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace AutoBattler
 {
     public class UnitStatus : IUnitStatusProvider, IUnitStatusSetter
