@@ -31,10 +31,10 @@ namespace AutoBattler
         {
             if (predicate == null)
             {
-                return units.Where(unit => unit.StatusProvider.StateID == UnitStateID.Fight);
+                return units.Where(unit => unit.StateMachine.CurrentStateID == UnitStateID.Fight);
             }
 
-            return units.Where(unit => unit.StatusProvider.StateID == UnitStateID.Fight && predicate(unit));
+            return units.Where(unit => unit.StateMachine.CurrentStateID == UnitStateID.Fight && predicate(unit));
         }
 
         public IEnumerable<UnitBehaviourController> SelectUnits(Func<UnitBehaviourController, bool> predicate)

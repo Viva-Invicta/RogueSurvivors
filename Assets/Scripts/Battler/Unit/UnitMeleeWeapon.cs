@@ -14,7 +14,7 @@ namespace AutoBattler
         public override void Initialize(UnitBehaviourController owner, IEnumerable<DamageType> damageType)
         {
             this.owner = owner;
-            this.damageTypes = damageType;
+            damageTypes = damageType;
         }
 
         private void OnTriggerEnter(Collider other)
@@ -38,7 +38,7 @@ namespace AutoBattler
             var ownerStatusProvider = owner.StatusProvider;
 
             var isValidTarget =
-               otherUnitStatusProvider.StateID == UnitStateID.Fight &&
+               unit.StateMachine.CurrentStateID == UnitStateID.Fight &&
                otherUnitStatusProvider.Faction != owner.StatusProvider.Faction;
 
             if (!isValidTarget)

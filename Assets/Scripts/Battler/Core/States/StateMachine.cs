@@ -11,7 +11,7 @@ namespace AutoBattler
 
         private readonly IStateFactory<IState<TStateID>, TStateID> stateFactory;
 
-        private IState<TStateID> currentState;
+        private IState<TStateID> currentState = default;
         private TStateID currentStateID;
 
         public TStateID CurrentStateID => currentStateID;
@@ -34,13 +34,13 @@ namespace AutoBattler
 
         public void SetState(TStateID newStateID, bool notify = true)
         {
-            if (Equals(currentStateID, newStateID))
-            {
-                return;
-            }
-
             if (currentState != default)
             {
+                if (Equals(currentStateID, newStateID))
+                {
+                    return;
+                }
+
                 currentState.Exit();
                 currentState.StateChangeRequest -= HandleStateChangeRequest;
             }

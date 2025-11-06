@@ -7,7 +7,7 @@ namespace AutoBattler
     {
         public UnitStatus Create(UnitFaction faction, UnitConfiguration config, UnitWeapon weapon)
         {
-            var unitStatus = new UnitStatus(faction, config);
+            var unitStatus = new UnitStatus(faction);
 
             unitStatus.Configuration = config;
 

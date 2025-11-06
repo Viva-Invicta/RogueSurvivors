@@ -2,7 +2,7 @@ namespace AutoBattler
 {
     public class UnitStatus : IUnitStatusProvider, IUnitStatusSetter
     {
-        public UnitStatus(UnitFaction faction, UnitConfiguration configuration)
+        public UnitStatus(UnitFaction faction)
         {
             Faction = faction;
         }
@@ -10,7 +10,6 @@ namespace AutoBattler
         public UnitConfiguration Configuration { get; set; }
         public UnitFaction Faction { get; set; }
 
-        public UnitStateID StateID { get; set; }
         public Resource Health { get; set; }
 
         public bool IsMovementLocked { get; set; }
@@ -30,8 +29,6 @@ namespace AutoBattler
         public UnitConfiguration Configuration { get; }
         public UnitFaction Faction { get; }
 
-        public UnitStateID StateID { get; }
-
         public Resource Health { get; }
 
         public bool IsMovementLocked { get; }
@@ -49,8 +46,6 @@ namespace AutoBattler
     {
         public UnitConfiguration Configuration { set; }
         public UnitFaction Faction { set; }
-
-        public UnitStateID StateID { set; }
 
         public Resource Health { set; }
 

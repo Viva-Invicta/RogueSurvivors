@@ -1,6 +1,5 @@
 using DG.Tweening;
 using System;
-using System.Collections;
 using UnityEngine;
 
 namespace AutoBattler
@@ -36,7 +35,7 @@ namespace AutoBattler
 
         public void Move(Vector3 direction)
         {
-            if (unitStatus.StateID != UnitStateID.Fight || unitStatus.IsMovementLocked)
+            if (unitStatus.IsMovementLocked)
             {
                 return;
             }

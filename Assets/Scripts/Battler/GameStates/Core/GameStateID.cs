@@ -6,6 +6,7 @@
         RoomSelection,
         BattlePrepare,
         Battle,
-        BattleCleanup
+        BattleCleanup,
+        None
     }
 }
