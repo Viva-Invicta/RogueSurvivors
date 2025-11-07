@@ -3,14 +3,14 @@ using System.Linq;
 
 namespace AutoBattler
 {
-    public class BattleCleanupGameState : GameStateBase
+    public class CombatCleanupGameState : GameStateBase
     {
         public override event Action<GameStateID> StateChangeRequest;
 
         private readonly EntitiesService entitiesService;
         private readonly GridService gridService;
            
-        public BattleCleanupGameState(ServiceLocator serviceLocator) : base(serviceLocator)
+        public CombatCleanupGameState(ServiceLocator serviceLocator) : base(serviceLocator)
         {
             entitiesService = serviceLocator.EntitiesService;
             gridService = serviceLocator.GridService;
@@ -33,16 +33,17 @@ namespace AutoBattler
                 enemyCell.RemoveEntity();
             }
 
-            var playerUnits = entitiesService.SelectFightingUnits(unit => unit.StatusProvider.Faction == UnitFaction.Player);
+            var playerUnits = entitiesService.SelectUnits(unit => unit.StatusProvider.Faction == UnitFaction.Player);
 
             foreach (var unit in playerUnits)
             {
+                unit.StatusProvider.Health.Reset();
                 unit.StateMachine.SetState(UnitStateID.Waiting, notify: false);
             }
 
             gridService.ResetActiveGridEntities();
 
-            StateChangeRequest?.Invoke(GameStateID.BattlePrepare);
+            StateChangeRequest?.Invoke(GameStateID.CombatPrepare);
 
         }
     }

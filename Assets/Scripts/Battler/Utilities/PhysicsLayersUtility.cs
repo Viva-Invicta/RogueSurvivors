@@ -4,5 +4,6 @@ namespace AutoBattler
     {
         public const string UnitPreviewLayer = "UnitPreview";
         public const string UnitLayer = "Unit";
+        public const string UnitDeadLayer = "DeadUnit";
     }
 }

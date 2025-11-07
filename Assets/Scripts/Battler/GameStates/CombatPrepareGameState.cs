@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace AutoBattler
 {
-    public class BattlePrepareGameState : GameStateBase
+    public class CombatPrepareGameState : GameStateBase
     {
         public override event Action<GameStateID> StateChangeRequest;
 
@@ -19,7 +19,7 @@ namespace AutoBattler
 
         private readonly TargetSelectorFactory targetSelectorFactory;
 
-        public BattlePrepareGameState(ServiceLocator serviceLocator) : base(serviceLocator)
+        public CombatPrepareGameState(ServiceLocator serviceLocator) : base(serviceLocator)
         {
             uiService = serviceLocator.UIService;
             unitPreviewDragService = serviceLocator.UnitPreviewDragService;
@@ -109,6 +109,7 @@ namespace AutoBattler
             if (wavesCount > currentRoomWave)
             {
                 waveToSpawn = currentRoomWave;
+                roomsService.IncreaseWave();
             }
             else
             {
@@ -136,7 +137,7 @@ namespace AutoBattler
 
         private void HandleStartFightButtonPressed()
         {
-            StateChangeRequest?.Invoke(GameStateID.Battle);
+            StateChangeRequest?.Invoke(GameStateID.Combat);
         }
     }
 }

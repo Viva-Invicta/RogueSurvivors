@@ -8,6 +8,8 @@ namespace AutoBattler
         [SerializeField]
         private ServiceLocator serviceLocator;
 
+        private StateMachine<GameStateBase, GameStateID> gameStateMachine;
+
         private void OnEnable()
         {
             serviceLocator.InitializeServices();
@@ -16,10 +18,15 @@ namespace AutoBattler
         private void Start()
         {
             var gameStateFactory = new GameStateFactory(serviceLocator);
-            var gameStateMachine = new StateMachine<GameStateBase, GameStateID>(gameStateFactory);
+            gameStateMachine = new StateMachine<GameStateBase, GameStateID>(gameStateFactory);
 
             gameStateMachine.StateChanged += HandleGameStateChange;
             gameStateMachine.SetState(GameStateID.Initialization);
+        }
+
+        private void Update()
+        {
+            gameStateMachine?.Process(Time.deltaTime);
         }
 
         private void HandleGameStateChange(GameStateID newStateID)

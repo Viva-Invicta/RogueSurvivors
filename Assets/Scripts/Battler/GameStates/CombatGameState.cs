@@ -4,13 +4,13 @@ using System.Linq;
 
 namespace AutoBattler
 {
-    public class BattleGameState : GameStateBase
+    public class CombatGameState : GameStateBase
     {
         public override event Action<GameStateID> StateChangeRequest;
 
         private readonly EntitiesService entitiesService;
 
-        public BattleGameState(ServiceLocator serviceLocator) : base(serviceLocator)
+        public CombatGameState(ServiceLocator serviceLocator) : base(serviceLocator)
         {
             entitiesService = serviceLocator.EntitiesService;
 
@@ -25,6 +25,11 @@ namespace AutoBattler
                 unit.StateMachine.SetState(UnitStateID.Fight, notify: false);
                 unit.StateMachine.StateChanged += HandleUnitStateChange;
             }
+        }
+
+        public override void Process(float deltaTime)
+        {
+            base.Process(deltaTime);
         }
 
         public override void Exit()
@@ -52,7 +57,7 @@ namespace AutoBattler
 
             if (playerFightingUnitsCount == 0 || enemyFightingUnitsCount == 0)
             {
-                StateChangeRequest?.Invoke(GameStateID.BattleCleanup);
+                StateChangeRequest?.Invoke(GameStateID.AfterCombat);
             }
         }
     }

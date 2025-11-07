@@ -38,7 +38,7 @@ namespace AutoBattler
             gridService.SetActiveRoomGrid(activeRoomGrid);
             enemyFormationConfigsService.UpdateFormationConfig(activeRoomGrid.SizeX, activeRoomGrid.SizeY);
 
-            StateChangeRequest?.Invoke(GameStateID.BattlePrepare);
+            StateChangeRequest?.Invoke(GameStateID.CombatPrepare);
         }
     }
 }

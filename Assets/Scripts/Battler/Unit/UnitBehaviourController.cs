@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace AutoBattler
@@ -27,9 +28,11 @@ namespace AutoBattler
 
         private Action<UnitStateID> onStateChangedHandler;
 
+        private Quaternion savedRotation;
+
         private void Update()
         {
-            stateMachine?.Update(Time.deltaTime);
+            stateMachine?.Process(Time.deltaTime);
         }
 
         public void Initialize(UnitFaction faction, TargetSelectorFactory targetSelectorFactory)
@@ -71,6 +74,17 @@ namespace AutoBattler
             stateFactory = null;
             status = null;
             targetSelectorFactory = null;
+        }
+
+        public void SaveTransformData()
+        {
+            savedRotation = transform.rotation;
+        }
+
+        public void Reset()
+        {
+            transform.rotation = savedRotation;
+            transform.localPosition = Vector3.zero;
         }
     }
 }

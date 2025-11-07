@@ -70,6 +70,7 @@ namespace AutoBattler
         {
             if (!activeTarget)
             {
+                animationController.SetWalking(false);
                 return;
             }
 

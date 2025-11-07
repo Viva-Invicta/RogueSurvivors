@@ -4,5 +4,7 @@
     {
         public (int x, int y) GridPosition { get; }
         public void SetGridPosition(int x, int y);
+        public void SaveTransformData();
+        public void Reset();
     }
 }

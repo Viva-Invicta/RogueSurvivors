@@ -27,7 +27,7 @@ namespace AutoBattler
             stateFactory = factory;
         }
 
-        public void Update(float deltaTime)
+        public void Process(float deltaTime)
         {
             currentState?.Process(deltaTime);
         }

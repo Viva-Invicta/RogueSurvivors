@@ -33,13 +33,18 @@ namespace AutoBattler
             entityTransform.localPosition = Vector3.zero;
 
             containedEntity = entity;
+
+            if (entity.TryGetComponent<IEntityWithGridPosition>(out var gridEntity))
+            {
+                gridEntity.SaveTransformData();
+            }
         }
 
         public void ResetEntityPosition()
         {
-            if (containedEntity)
+            if (containedEntity && containedEntity.TryGetComponent<IEntityWithGridPosition>(out var entity))
             {
-                containedEntity.transform.localPosition = Vector3.zero;
+                entity.Reset();
             }
         }
 

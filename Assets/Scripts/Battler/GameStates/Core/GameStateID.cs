@@ -4,9 +4,10 @@
     {
         Initialization,
         RoomSelection,
-        BattlePrepare,
-        Battle,
-        BattleCleanup,
+        CombatPrepare,
+        Combat,
+        AfterCombat,
+        CombatCleanup,
         None
     }
 }

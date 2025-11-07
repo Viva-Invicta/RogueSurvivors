@@ -14,9 +14,10 @@ namespace AutoBattler
             { 
                 [GameStateID.Initialization] = () => new InitializationGameState(serviceLocator),
                 [GameStateID.RoomSelection] = () => new RoomSelectionGameState(serviceLocator),
-                [GameStateID.BattlePrepare] = () => new BattlePrepareGameState(serviceLocator),
-                [GameStateID.Battle] = () => new BattleGameState(serviceLocator),
-                [GameStateID.BattleCleanup] = () => new BattleCleanupGameState(serviceLocator)
+                [GameStateID.CombatPrepare] = () => new CombatPrepareGameState(serviceLocator),
+                [GameStateID.Combat] = () => new CombatGameState(serviceLocator),
+                [GameStateID.CombatCleanup] = () => new CombatCleanupGameState(serviceLocator),
+                [GameStateID.AfterCombat] = () => new AfterCombatGameState(serviceLocator)
             };
         }
 

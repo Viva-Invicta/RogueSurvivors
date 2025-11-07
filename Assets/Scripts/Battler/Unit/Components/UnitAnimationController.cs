@@ -94,21 +94,21 @@ namespace AutoBattler
             }
         }
 
-        public void PlayDeath()
+        public void SetDeath(bool isDeath)
         {
             SetWalking(false);
             if (AnimatorKeysUtility.TryGetAnimatorHash(AnimatorKeyIdentifier.Death, out var hash))
             {
-                animator.SetTrigger(hash);
+                animator.SetBool(hash, isDeath);
             }
         }
 
-        public void PlayCheer()
+        public void SetCheer(bool isCheer)
         {
             SetWalking(false);
             if (AnimatorKeysUtility.TryGetAnimatorHash(AnimatorKeyIdentifier.Cheer, out var hash))
             {
-                animator.SetBool(hash, true);
+                animator.SetBool(hash, isCheer);
             }
         }
     }
