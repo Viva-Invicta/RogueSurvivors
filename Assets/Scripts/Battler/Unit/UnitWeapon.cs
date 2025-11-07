@@ -5,8 +5,11 @@ namespace AutoBattler
 {
     public abstract class UnitWeapon : MonoBehaviour
     {
-        public abstract void Activate();
-        public abstract void Deactivate();
+        protected UnitBehaviourController ActiveTarget;
+
+        public virtual void Activate() { }
+        public virtual void Deactivate() { }
+        public virtual void SetTarget(UnitBehaviourController target) => ActiveTarget = target;
         public abstract void Initialize(UnitBehaviourController owner, IEnumerable<DamageType> damageType);
     }
 }

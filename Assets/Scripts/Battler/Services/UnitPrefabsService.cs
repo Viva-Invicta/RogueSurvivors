@@ -24,8 +24,6 @@ namespace AutoBattler
                 {
                     Debug.LogError($"{nameof(UnitPrefabsService)} :" +
                         $" Unit prefab with name {unit.gameObject.name} does not have configuration!");
-
-                    return default;
                 }
                 if (unit.Configuration.UnitType == unitType)
                 {
@@ -41,6 +39,7 @@ namespace AutoBattler
     public enum UnitType
     {
         Knight0_0,
-        Skeleton0_0
+        Skeleton0_0,
+        Mage0_0
     }
 }

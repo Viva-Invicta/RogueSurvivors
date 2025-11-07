@@ -13,6 +13,7 @@ namespace AutoBattler
             {
                 { TargetSelectorType.NearestEnemy, new ClosestEnemySelector(entitiesService) },
                 { TargetSelectorType.FarthestAlly, new FarthestAllySelector(entitiesService) },
+                { TargetSelectorType.RandomEnemy, new RandomEnemySelector(entitiesService) }
             };
         }
 

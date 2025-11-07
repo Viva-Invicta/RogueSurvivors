@@ -3,6 +3,7 @@
     public enum TargetSelectorType
     {
         NearestEnemy,
-        FarthestAlly
+        FarthestAlly,
+        RandomEnemy
     }
 }

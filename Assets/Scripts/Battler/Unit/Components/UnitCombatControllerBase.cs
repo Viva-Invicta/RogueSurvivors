@@ -24,12 +24,12 @@ namespace AutoBattler
             Weapon = unitStatus.Weapon;
         }
 
-        public virtual void Attack(UnitBehaviourController target)
+        public void Attack(UnitBehaviourController target)
         {
             cooldown = unitStatus.UnitValuesCalculator.CalculateAttackCooldown();
+            Weapon.SetTarget(target);
 
             OnAfterAttackStarted();
-
         }
 
         protected virtual void OnAfterAttackStarted()

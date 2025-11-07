@@ -25,6 +25,7 @@ namespace AutoBattler
             unitInventoryService.SetView(unitInventoryView);
             unitInventoryService.AddAvailableUnit(UnitType.Skeleton0_0);
             unitInventoryService.AddAvailableUnit(UnitType.Knight0_0);
+            unitInventoryService.AddAvailableUnit(UnitType.Mage0_0);
 
             StateChangeRequest?.Invoke(GameStateID.RoomSelection);
         }

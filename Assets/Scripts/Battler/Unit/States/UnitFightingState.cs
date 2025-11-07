@@ -79,9 +79,13 @@ namespace AutoBattler
 
             var ownerStatus = StateData.OwnerStatus;
 
-            if (distanceToTarget <= distanceToAttack && !ownerStatus.IsAttackInCooldown && !ownerStatus.IsAttackLocked)
+            if (distanceToTarget <= distanceToAttack)
             {
-                ExecuteAttack();
+                animationController.SetWalking(false); // стоим на месте
+                if (!ownerStatus.IsAttackInCooldown && !ownerStatus.IsAttackLocked)
+                {
+                    ExecuteAttack();
+                }
             }
             else
             {

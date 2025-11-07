@@ -55,7 +55,7 @@ Rigidbody:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_ImplicitCom: 1
+  m_ImplicitCom: 0
   m_ImplicitTensor: 1
   m_UseGravity: 0
   m_IsKinematic: 0
@@ -196,4 +196,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c0de9c6ba38104419861dde3985c325, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Configuration: {fileID: 0}
+  <Configuration>k__BackingField: {fileID: 0}
+  <ComponentsContainer>k__BackingField:
+    <AnimationController>k__BackingField: {fileID: 0}
+    <MovementController>k__BackingField: {fileID: 0}
+    <CombatController>k__BackingField: {fileID: 0}
+    <DamageReceiver>k__BackingField: {fileID: 0}
+  weapon: {fileID: 0}

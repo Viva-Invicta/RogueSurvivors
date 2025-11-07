@@ -19,7 +19,9 @@ namespace AutoBattler
             { AnimatorKeyIdentifier.MoveSpeed, "Speed" },
             { AnimatorKeyIdentifier.AttackSpeed, "AttackSpeed" },
 
-            { AnimatorKeyIdentifier.Preview, "Preview" }
+            { AnimatorKeyIdentifier.Preview, "Preview" },
+
+            { AnimatorKeyIdentifier.RangedAttack1, "RangedAttack1" }
         };
 
         private static Dictionary<AnimatorKeyIdentifier, int> AnimatorHashes = new Dictionary<AnimatorKeyIdentifier, int>();
@@ -56,6 +58,7 @@ namespace AutoBattler
         Attack3,
         AttackSpeed,
         MoveSpeed,
-        Preview
+        Preview,
+        RangedAttack1
     }
 }

@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7310ddff2dff3f54f9bc25bdd82e3734, type: 3}
+  m_Name: Mage0_0
+  m_EditorClassIdentifier: 
+  unitType: 2
+  interfaceIcon: {fileID: 21300000, guid: ddeb586c90e075f449df9fc7127c99da, type: 3}
+  interfaceDescriptionKey: 
+  baseDamage:
+  - <DamageType>k__BackingField: 6
+    <Value>k__BackingField: 10
+  baseAttackCooldown: 1.5
+  baseMovementSpeed: 1.4
+  baseAttackDistance: 10
+  baseMaxHealth: 50
+  timeToUpdateTarget: 0.3
+  targetSelector: 2

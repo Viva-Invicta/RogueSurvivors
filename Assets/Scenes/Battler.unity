@@ -5738,6 +5738,7 @@ MonoBehaviour:
   <UnitPrefabs>k__BackingField:
   - {fileID: 8838061564293144389, guid: da8a33a414c692f48b5eb0f6db55a613, type: 3}
   - {fileID: 8353900059024908403, guid: 4657d30a19526bd408ee0dcab05f1379, type: 3}
+  - {fileID: 6832222046398271023, guid: eaf95d87586a4944e82fd18e64d99378, type: 3}
 --- !u!1 &1520363686
 GameObject:
   m_ObjectHideFlags: 0

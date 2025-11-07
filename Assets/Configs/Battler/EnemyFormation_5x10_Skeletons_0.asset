@@ -26,10 +26,33 @@ MonoBehaviour:
     Enemies:
     - unitType: 1
       gridX: 0
-      gridY: 6
+      gridY: 9
     - unitType: 1
       gridX: 3
       gridY: 9
     - unitType: 1
       gridX: 4
       gridY: 9
+  - WaveOrder: 2
+    Enemies:
+    - unitType: 1
+      gridX: 0
+      gridY: 9
+    - unitType: 1
+      gridX: 1
+      gridY: 9
+    - unitType: 1
+      gridX: 2
+      gridY: 9
+    - unitType: 1
+      gridX: 3
+      gridY: 9
+    - unitType: 1
+      gridX: 4
+      gridY: 9
+    - unitType: 1
+      gridX: 3
+      gridY: 7
+    - unitType: 1
+      gridX: 2
+      gridY: 7
