@@ -24,3 +24,6 @@ MonoBehaviour:
   baseMaxHealth: 50
   timeToUpdateTarget: 0.3
   targetSelector: 2
+  effects:
+  - prefab: {fileID: 28882736539376632, guid: 560d9bb07580fa740b0d5c0307dc6095, type: 3}
+    type: 0

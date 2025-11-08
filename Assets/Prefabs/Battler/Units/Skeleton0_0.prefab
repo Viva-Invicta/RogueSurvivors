@@ -2679,6 +2679,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8551845960576923044}
     - target: {fileID: 597535302679818455, guid: a35bc09fc48fe63458d4dd2f7816c473, type: 3}
+      propertyPath: <ComponentsContainer>k__BackingField.<EffectsController>k__BackingField
+      value: 
+      objectReference: {fileID: -3987489644055921768}
+    - target: {fileID: 597535302679818455, guid: a35bc09fc48fe63458d4dd2f7816c473, type: 3}
       propertyPath: <ComponentsContainer>k__BackingField.<MovementController>k__BackingField
       value: 
       objectReference: {fileID: 4663711152042987511}
@@ -2749,6 +2753,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6113097841447589313, guid: a35bc09fc48fe63458d4dd2f7816c473, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8551845960576923044}
+    - targetCorrespondingSourceObject: {fileID: 6113097841447589313, guid: a35bc09fc48fe63458d4dd2f7816c473, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -3987489644055921768}
   m_SourcePrefab: {fileID: 100100000, guid: a35bc09fc48fe63458d4dd2f7816c473, type: 3}
 --- !u!1 &3419299742008984933 stripped
 GameObject:
@@ -2809,6 +2816,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   delayBeforeWeaponActivation: 0.2
   earlyWeaponDeactivation: 0.2
+--- !u!114 &-3987489644055921768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3419299742008984933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 092dfca11701ee841b2ebd7484880b6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &4233811322829962604 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4711987942405008840, guid: a35bc09fc48fe63458d4dd2f7816c473, type: 3}

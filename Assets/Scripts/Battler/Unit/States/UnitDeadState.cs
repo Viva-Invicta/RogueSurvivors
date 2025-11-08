@@ -5,10 +5,14 @@ namespace AutoBattler
     public class UnitDeadState : UnitStateBase
     {
         private UnitAnimationController animationController;
+        private UnitEffectsController effectsController;
 
         public UnitDeadState(UnitStateData stateData) : base(stateData)
         {
-            animationController = stateData.OwnerComponents.AnimationController;
+            var ownerComponents = stateData.OwnerComponents;
+
+            animationController = ownerComponents.AnimationController;
+            effectsController = ownerComponents.EffectsController;
         }
 
         public override void Enter()
@@ -17,6 +21,8 @@ namespace AutoBattler
 
             animationController.SetDeath(true);
             SetPhysicsLayer(isDeadLayer: true);
+
+            effectsController.PlayEffect(UnitEffectType.Death);
         }
 
         public override void Exit()
@@ -25,6 +31,8 @@ namespace AutoBattler
 
             SetPhysicsLayer(isDeadLayer: false);
             animationController.SetDeath(false);
+
+            effectsController = default;
         }
 
         private void SetPhysicsLayer(bool isDeadLayer)

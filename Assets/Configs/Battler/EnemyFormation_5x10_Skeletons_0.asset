@@ -56,3 +56,41 @@ MonoBehaviour:
     - unitType: 1
       gridX: 2
       gridY: 7
+  - WaveOrder: 3
+    Enemies:
+    - unitType: 1
+      gridX: 0
+      gridY: 9
+    - unitType: 1
+      gridX: 1
+      gridY: 9
+    - unitType: 1
+      gridX: 2
+      gridY: 9
+    - unitType: 1
+      gridX: 3
+      gridY: 9
+    - unitType: 1
+      gridX: 4
+      gridY: 9
+    - unitType: 1
+      gridX: 3
+      gridY: 7
+    - unitType: 1
+      gridX: 2
+      gridY: 7
+    - unitType: 1
+      gridX: 4
+      gridY: 7
+    - unitType: 1
+      gridX: 1
+      gridY: 7
+    - unitType: 1
+      gridX: 0
+      gridY: 7
+    - unitType: 2
+      gridX: 0
+      gridY: 8
+    - unitType: 2
+      gridX: 4
+      gridY: 8

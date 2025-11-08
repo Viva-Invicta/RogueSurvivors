@@ -127,6 +127,7 @@ namespace AutoBattler
                 {
                     enemyInstance.transform.Rotate(0, 180, 0);
                     entitiesService.AddUnit(enemyInstance);
+                    enemyInstance.StateMachine.SetState(UnitStateID.Waiting);
                 }
                 else
                 {

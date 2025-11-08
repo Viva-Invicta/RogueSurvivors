@@ -52,6 +52,10 @@ namespace AutoBattler
         [SerializeField]
         private TargetSelectorType targetSelector = TargetSelectorType.NearestEnemy;
 
+        [BoxGroup("In-game settings")]
+        [SerializeField]
+        private List<UnitEffectConfiguration> effects = new List<UnitEffectConfiguration>();
+
         public UnitType UnitType => unitType;
         public string InterfaceDescriptionKey => interfaceDescriptionKey;
         public Sprite InterfaceIcon => interfaceIcon;
@@ -62,6 +66,8 @@ namespace AutoBattler
         public float BaseMaxHealth => baseMaxHealth;
         public float TimeToUpdateTarget => timeToUpdateTarget;
         public TargetSelectorType TargetSelector => targetSelector;
+        public List<UnitEffectConfiguration> Effects => effects;
+
     }
 
     [Serializable]

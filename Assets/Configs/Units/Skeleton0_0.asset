@@ -21,6 +21,11 @@ MonoBehaviour:
   baseAttackCooldown: 1.5
   baseMovementSpeed: 1
   baseAttackDistance: 1.5
-  baseMaxHealth: 70
+  baseMaxHealth: 40
   timeToUpdateTarget: 0.2
   targetSelector: 0
+  effects:
+  - prefab: {fileID: 7290172088938627233, guid: 98d9e9792d9995b4596048e8431fc231, type: 3}
+    type: 0
+  - prefab: {fileID: 2262414973609548782, guid: 17263380e0dfba34f8fa674c5d8619c1, type: 3}
+    type: 1

@@ -11,6 +11,7 @@ namespace AutoBattler
         [field: SerializeField] public UnitMovementController MovementController { get; private set; }
         [field: SerializeField] public UnitCombatControllerBase CombatController { get; private set; }
         [field: SerializeField] public UnitDamageReceiver DamageReceiver { get; private set; }
+        [field: SerializeField] public UnitEffectsController EffectsController { get; private set; }
 
         public void InitializeComponents(IUnitStatusProvider unitStatus)
         {
@@ -19,7 +20,8 @@ namespace AutoBattler
                 AnimationController,
                 MovementController,
                 CombatController,
-                DamageReceiver
+                DamageReceiver,
+                EffectsController
             };
 
             foreach (var component in components)
@@ -32,7 +34,8 @@ namespace AutoBattler
         {
             if (!component)
             {
-                Debug.LogError($"{nameof(UnitComponentsContainer)} : One of the components on unit {unitStatus.Configuration.name} is not set");
+                Debug.LogError($"{nameof(UnitComponentsContainer)} : One of the components " +
+                    $"on unit {unitStatus.Configuration.name} is not set");
             }
 
             if (component is IInitializableWithUnitStatusComponent initializableComponent)
