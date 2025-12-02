@@ -40,6 +40,7 @@ namespace AutoBattler
     {
         Knight0_0,
         Skeleton0_0,
-        Mage0_0
+        Mage0_0,
+        Amir
     }
 }

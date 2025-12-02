@@ -30,9 +30,9 @@ namespace AutoBattler
 
         private Quaternion savedRotation;
 
-        private void Update()
+        private void FixedUpdate()
         {
-            stateMachine?.Process(Time.deltaTime);
+            stateMachine?.Process(Time.fixedDeltaTime);
         }
 
         public void Initialize(UnitFaction faction, TargetSelectorFactory targetSelectorFactory)

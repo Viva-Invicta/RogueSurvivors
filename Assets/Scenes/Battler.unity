@@ -1767,7 +1767,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 33.977318
+  field of view: 41.4
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -1793,13 +1793,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.38211143, y: -0.59497136, z: 0.38211143, w: 0.59497136}
-  m_LocalPosition: {x: 19, y: 31.1, z: -1}
+  m_LocalRotation: {x: 0.1481196, y: -0.8156274, z: 0.23889245, w: 0.5057104}
+  m_LocalPosition: {x: 13.4, y: 5.13, z: 7.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 65.42, y: -90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &519420033
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2528,6 +2528,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 99c5b5615d9ebe4459fece738891f04c, type: 3}
   m_PrefabInstance: {fileID: 679688300}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &685202084
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 685202085}
+  m_Layer: 0
+  m_Name: CameraPreparePlacement
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &685202085
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 685202084}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.38211143, y: -0.59497136, z: 0.38211143, w: 0.59497136}
+  m_LocalPosition: {x: 19, y: 31.1, z: -1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 65.42, y: -90, z: 0}
 --- !u!1001 &687324178
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5360,6 +5391,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   serviceLocator: {fileID: 345153186}
+  cameraPrepareTransform: {fileID: 685202085}
+  cameraFightTransform: {fileID: 1912676552}
 --- !u!4 &1376466568
 Transform:
   m_ObjectHideFlags: 0
@@ -5739,6 +5772,7 @@ MonoBehaviour:
   - {fileID: 8838061564293144389, guid: da8a33a414c692f48b5eb0f6db55a613, type: 3}
   - {fileID: 8353900059024908403, guid: 4657d30a19526bd408ee0dcab05f1379, type: 3}
   - {fileID: 6832222046398271023, guid: eaf95d87586a4944e82fd18e64d99378, type: 3}
+  - {fileID: 8838061564293144389, guid: 8bfc032d4bf090c4ab0cfc4d7b53e6b3, type: 3}
 --- !u!1 &1520363686
 GameObject:
   m_ObjectHideFlags: 0
@@ -7218,6 +7252,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 05bba67b4e5e3654fa474e4d23085de3, type: 3}
   m_PrefabInstance: {fileID: 1910309003}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1912676551
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1912676552}
+  m_Layer: 0
+  m_Name: GameCameraPlacement
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1912676552
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1912676551}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.1481196, y: -0.8156274, z: 0.23889245, w: 0.5057104}
+  m_LocalPosition: {x: 13.4, y: 5.13, z: 7.7}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 32.65, y: -116.4, z: 0}
 --- !u!1001 &1930480338
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8342,6 +8407,8 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 519420032}
+  - {fileID: 1912676552}
+  - {fileID: 685202085}
   - {fileID: 1629262892}
   - {fileID: 1350002480}
   - {fileID: 1843404282}
